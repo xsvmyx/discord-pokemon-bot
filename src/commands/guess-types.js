@@ -81,7 +81,7 @@ async function guess_types(interaction) {
         if (i.isButton() && i.customId === "validate_types") {
             collector.stop();
 
-            const player = await getOrCreatePlayer(interaction.user);
+            const player = await getOrCreatePlayer(interaction);
 
             const chosenTypes = Object.values(selections)
                 .filter(t => t !== "None")
@@ -109,7 +109,7 @@ async function guess_types(interaction) {
 
     collector.on("end", async (_, reason) => {
         if (reason === "time") {
-            const player = await getOrCreatePlayer(interaction.user);
+            const player = await getOrCreatePlayer(interaction);
             const lang = player.language ?? "en";
             const name = pokemon.names[lang] ?? pokemon.names["en"];
 

@@ -26508,7 +26508,7 @@
       "Dark",
       "Grass"
     ],
-    "image_local": "images/1001.jpg",
+    "image_local": "images2/1001.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/wo-chien.jpg",
     "names": {
       "ja-Hrkt": "チオンジェン",
@@ -26535,7 +26535,7 @@
       "Dark",
       "Ice"
     ],
-    "image_local": "images/1002.jpg",
+    "image_local": "images2/1002.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/chien-pao.jpg",
     "names": {
       "ja-Hrkt": "パオジアン",
@@ -26562,7 +26562,7 @@
       "Dark",
       "Ground"
     ],
-    "image_local": "images/1003.jpg",
+    "image_local": "images2/1003.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/ting-lu.jpg",
     "names": {
       "ja-Hrkt": "ディンルー",
@@ -26589,7 +26589,7 @@
       "Dark",
       "Fire"
     ],
-    "image_local": "images/1004.jpg",
+    "image_local": "images2/1004.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/chi-yu.jpg",
     "names": {
       "ja-Hrkt": "イーユイ",
@@ -26616,7 +26616,7 @@
       "Dragon",
       "Dark"
     ],
-    "image_local": "images/1005.jpg",
+    "image_local": "images2/1005.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/roaring-moon.jpg",
     "names": {
       "ja-Hrkt": "トドロクツキ",
@@ -26643,7 +26643,7 @@
       "Fairy",
       "Fighting"
     ],
-    "image_local": "images/1006.jpg",
+    "image_local": "images2/1006.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/iron-valiant.jpg",
     "names": {
       "ja-Hrkt": "テツノブジン",
@@ -26670,7 +26670,7 @@
       "Fighting",
       "Dragon"
     ],
-    "image_local": "images/1007.jpg",
+    "image_local": "images2/1007.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/koraidon.jpg",
     "names": {
       "ja-Hrkt": "コライドン",
@@ -26697,7 +26697,7 @@
       "Electric",
       "Dragon"
     ],
-    "image_local": "images/1008.jpg",
+    "image_local": "images2/1008.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/miraidon.jpg",
     "names": {
       "ja-Hrkt": "ミライドン",
@@ -26724,7 +26724,7 @@
       "Water",
       "Dragon"
     ],
-    "image_local": "images/1009.jpg",
+    "image_local": "images2/1009.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/walking-wake.jpg",
     "names": {
       "ja-Hrkt": "ウネルミナモ",
@@ -26751,7 +26751,7 @@
       "Grass",
       "Psychic"
     ],
-    "image_local": "images/1010.jpg",
+    "image_local": "images2/1010.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/iron-leaves.jpg",
     "names": {
       "ja-Hrkt": "テツノイサハ",
@@ -26778,7 +26778,7 @@
       "Grass",
       "Dragon"
     ],
-    "image_local": "images/1011.jpg",
+    "image_local": "images2/1011.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/dipplin.jpg",
     "names": {
       "ja-Hrkt": "カミッチュ",
@@ -26804,7 +26804,7 @@
       "Grass",
       "Ghost"
     ],
-    "image_local": "images/1012.jpg",
+    "image_local": "images2/1012.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/poltchageist.jpg",
     "names": {
       "ja-Hrkt": "チャデス",
@@ -26830,7 +26830,7 @@
       "Grass",
       "Ghost"
     ],
-    "image_local": "images/1013.jpg",
+    "image_local": "images2/1013.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/sinistcha.jpg",
     "names": {
       "ja-Hrkt": "ヤバソチャ",
@@ -26856,7 +26856,7 @@
       "Poison",
       "Fighting"
     ],
-    "image_local": "images/1014.jpg",
+    "image_local": "images2/1014.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/okidogi.jpg",
     "names": {
       "ja-Hrkt": "イイネイヌ",
@@ -26882,7 +26882,7 @@
       "Poison",
       "Psychic"
     ],
-    "image_local": "images/1015.jpg",
+    "image_local": "images2/1015.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/munkidori.jpg",
     "names": {
       "ja-Hrkt": "マシマシラ",
@@ -26908,7 +26908,7 @@
       "Poison",
       "Fairy"
     ],
-    "image_local": "images/1016.jpg",
+    "image_local": "images2/1016.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/fezandipiti.jpg",
     "names": {
       "ja-Hrkt": "キチキギス",
@@ -26933,7 +26933,7 @@
     "types": [
       "Grass"
     ],
-    "image_local": "images/1017.jpg",
+    "image_local": "images2/1017.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/ogerpon.jpg",
     "names": {
       "ja-Hrkt": "オーガポン",
@@ -26959,7 +26959,7 @@
       "Steel",
       "Dragon"
     ],
-    "image_local": "images/1018.jpg",
+    "image_local": "images2/1018.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/archaludon.jpg",
     "names": {
       "ja-Hrkt": "ブリジュラス",
@@ -26985,7 +26985,7 @@
       "Grass",
       "Dragon"
     ],
-    "image_local": "images/1019.jpg",
+    "image_local": "images2/1019.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/hydrapple.jpg",
     "names": {
       "ja-Hrkt": "カミツオロチ",
@@ -27011,7 +27011,7 @@
       "Fire",
       "Dragon"
     ],
-    "image_local": "images/1020.jpg",
+    "image_local": "images2/1020.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/gouging-fire.jpg",
     "names": {
       "ja-Hrkt": "ウガツホムラ",
@@ -27037,7 +27037,7 @@
       "Electric",
       "Dragon"
     ],
-    "image_local": "images/1021.jpg",
+    "image_local": "images2/1021.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/raging-bolt.jpg",
     "names": {
       "ja-Hrkt": "タケルライコ",
@@ -27063,7 +27063,7 @@
       "Rock",
       "Psychic"
     ],
-    "image_local": "images/1022.jpg",
+    "image_local": "images2/1022.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/iron-boulder.jpg",
     "names": {
       "ja-Hrkt": "テツノイワオ",
@@ -27089,7 +27089,7 @@
       "Steel",
       "Psychic"
     ],
-    "image_local": "images/1023.jpg",
+    "image_local": "images2/1023.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/iron-crown.jpg",
     "names": {
       "ja-Hrkt": "テツノカシラ",
@@ -27114,7 +27114,7 @@
     "types": [
       "Normal"
     ],
-    "image_local": "images/1024.jpg",
+    "image_local": "images2/1024.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/terapagos.jpg",
     "names": {
       "ja-Hrkt": "テラパゴス",
@@ -27140,7 +27140,7 @@
       "Poison",
       "Ghost"
     ],
-    "image_local": "images/1025.jpg",
+    "image_local": "images2/1025.jpg",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/pecharunt.jpg",
     "names": {
       "ja-Hrkt": "モモワロウ",

@@ -65,7 +65,8 @@ client.on('interactionCreate', async (interaction) => {
             //interaction.reply('awwwwww');
             break;
         case 'guess-types':
-            await guess_types(interaction);    
+            await guess_types(interaction);
+            break;    
 
         default:
             console.log(`Unknown command: ${interaction.commandName}`);
@@ -82,6 +83,7 @@ client.on('interactionCreate', async (interaction) => {
             
         );
         console.log("OKKK");
+        
     } catch (e) {
         console.log("ERRRRR:", e);
     }

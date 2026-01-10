@@ -76,12 +76,12 @@ async function guess_gen(interaction) {
         console.log("POKÉMON ID:", randomIdNum);
 
         //
-        // 📌 Vérifier si le Pokémon appartient à la génération cliquée
+        //Vérifier si le Pokémon appartient à la génération cliquée
         //
         const range = generationRanges[chosenGen];
         const isCorrect = randomIdNum >= range.start && randomIdNum <= range.end;
 
-        const player = await getOrCreatePlayer(interaction.user);
+        const player = await getOrCreatePlayer(interaction);
 
         if (isCorrect) {
             await btn.reply("✅ Correct!");
@@ -94,7 +94,7 @@ async function guess_gen(interaction) {
         }
 
     } catch (e) {
-        const player = await getOrCreatePlayer(interaction.user);
+        const player = await getOrCreatePlayer(interaction);
         const lang = player.language ?? "en";
         const name = pokemon.names[lang] ?? pokemon.names["en"];
 

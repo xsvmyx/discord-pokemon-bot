@@ -9,7 +9,6 @@ const generationRanges = require('../utils/generationRanges');
 async function guess(interaction) {
     const pokedexData = JSON.parse(fs.readFileSync('./pokemon/pokedex.json', 'utf8'));
 
-    
     let genOption = interaction.options.get('gen')?.value;
 
     let min = 1;
@@ -23,7 +22,6 @@ async function guess(interaction) {
         }
     }
 
-    
     const randomIdNum = Math.floor(Math.random() * (max - min + 1)) + min;
     const randomId = randomIdNum.toString().padStart(4, '0');
 
@@ -33,7 +31,6 @@ async function guess(interaction) {
     const pokemon = pokedexData.find(p => p.id === randomId);
     if (!pokemon) return interaction.reply("Pokémon non trouvé 😢");
 
-    
     const filePath = `./pokemon/${pokemon.image_local}`;
     const file = new AttachmentBuilder(filePath);
 
@@ -47,7 +44,6 @@ async function guess(interaction) {
     const channel = interaction.channel;
 
     try {
-        //waiting for answer
         const collected = await channel.awaitMessages({
             max: 1,
             time: 12000,
@@ -57,16 +53,15 @@ async function guess(interaction) {
         const replyMsg = collected.first();
         const reply = replyMsg.content.toLowerCase();
 
-        
-        const player = await getOrCreatePlayer(replyMsg.author);
+        // ✅ ON UTILISE interaction (pas replyMsg.author)
+        const player = await getOrCreatePlayer(interaction);
 
-        
         const correct = Object.values(pokemon.names)
-            .some(n => n.toLowerCase() === reply.toLowerCase());
+            .some(n => n.toLowerCase() === reply);
 
         if (correct) {
             await replyMsg.react("✅");
-            await addPoints(player, channel,2);
+            await addPoints(player, channel, 2);
         } else {
             await replyMsg.react("❌");
 
@@ -77,14 +72,15 @@ async function guess(interaction) {
         }
 
     } catch {
-        
-        const player = await getOrCreatePlayer(interaction.user);
-        const lang = player.language ;
-        const name = pokemon.names[lang] ;
+        const player = await getOrCreatePlayer(interaction);
+
+        const lang = player.language ?? "en";
+        const name = pokemon.names[lang] ?? pokemon.names["en"];
 
         channel.send(`⏱ Time up! It was **${name}**.`);
     }
 }
+
 
 
 
