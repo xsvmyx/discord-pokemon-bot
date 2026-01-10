@@ -94,3 +94,14 @@ client.login(process.env.TOKEN)
 
 
 
+// 🔧 Render keep-alive 
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Bot is running");
+});
+
+server.listen(process.env.PORT || 3000, () => {
+  console.log("🌐 Dummy HTTP server running");
+});
