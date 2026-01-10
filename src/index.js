@@ -98,6 +98,11 @@ client.login(process.env.TOKEN)
 const http = require("http");
 
 const server = http.createServer((req, res) => {
+  // mini activité non persistante
+  const work = Math.sqrt(Math.random() * Date.now());
+
+  console.log(`[PING] work=${work}`);
+
   res.writeHead(200, { "Content-Type": "text/plain" });
   res.end("Bot is running");
 });
