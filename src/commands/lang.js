@@ -4,7 +4,7 @@ async function setLang(interaction) {
     const lang = interaction.options.getString("language");
 
     // Récupérer ou créer le player
-    let player = await getOrCreatePlayer(interaction);
+    let player = await getOrCreatePlayer(interaction.user,interaction.guildId);
 
     // Mettre à jour sa langue
     player.language = lang;

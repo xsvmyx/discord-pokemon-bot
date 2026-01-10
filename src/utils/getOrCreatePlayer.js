@@ -1,9 +1,6 @@
 const Player = require("../models/Player");
 
-async function getOrCreatePlayer(interaction) {
-    const user = interaction.user;
-    const guildId = interaction.guildId;
-
+async function getOrCreatePlayer(user, guildId) {
     let player = await Player.findOne({
         userId: user.id,
         guildId

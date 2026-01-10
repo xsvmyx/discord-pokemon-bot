@@ -18,7 +18,6 @@ async function guess_types(interaction) {
     );
 
     const pokemon = pokedexData[Math.floor(Math.random() * pokedexData.length)];
-
     const file = new AttachmentBuilder(`./pokemon/${pokemon.image_local}`);
 
     const embed = new EmbedBuilder()
@@ -46,22 +45,29 @@ async function guess_types(interaction) {
         .setLabel("Validate")
         .setStyle(ButtonStyle.Success);
 
+    const components = [
+        new ActionRowBuilder().addComponents(selectType1),
+        new ActionRowBuilder().addComponents(selectType2),
+        new ActionRowBuilder().addComponents(validateBtn)
+    ];
+
     await interaction.reply({
         embeds: [embed],
         files: [file],
-        components: [
-            new ActionRowBuilder().addComponents(selectType1),
-            new ActionRowBuilder().addComponents(selectType2),
-            new ActionRowBuilder().addComponents(validateBtn)
-        ]
+        components
     });
 
+    // 🧠 ÉTAT DU JEU
     const selections = {
         type_1: "None",
         type_2: "None"
     };
 
-    const filter = i => i.user.id === interaction.user.id;
+    const attemptedUsers = new Set();
+    let winner = null;
+
+    // 🔓 Tout le monde peut jouer (sauf bots)
+    const filter = i => !i.user.bot;
 
     const collector = interaction.channel.createMessageComponentCollector({
         filter,
@@ -70,18 +76,25 @@ async function guess_types(interaction) {
 
     collector.on("collect", async i => {
 
-        // Dropdown
+        // 🚫 Déjà tenté
+        if (attemptedUsers.has(i.user.id)) {
+            await i.reply({
+                content: "❌ You already used your attempt!",
+                ephemeral: true
+            });
+            return;
+        }
+
+        // 🎛 Sélecteurs
         if (i.isStringSelectMenu()) {
             selections[i.customId] = i.values[0];
             await i.deferUpdate();
             return;
         }
 
-        // Bouton Validate
+        // ✅ Validation
         if (i.isButton() && i.customId === "validate_types") {
-            collector.stop();
-
-            const player = await getOrCreatePlayer(interaction);
+            attemptedUsers.add(i.user.id);
 
             const chosenTypes = Object.values(selections)
                 .filter(t => t !== "None")
@@ -93,31 +106,57 @@ async function guess_types(interaction) {
                 chosenTypes.length === pokemonTypes.length &&
                 chosenTypes.every((t, idx) => t === pokemonTypes[idx]);
 
-            if (isCorrect) {
-                await addPoints(player, interaction.channel, 1);
-                await i.reply("✅ **Correct!** +1 point");
-            } else {
-                const lang = player.language ?? "en";
-                const name = pokemon.names[lang] ?? pokemon.names["en"];
+            const player = await getOrCreatePlayer(
+                i.user,
+                interaction.guildId
+            );
 
-                await i.reply(
-                    `❌ Wrong!\nPokémon: **${name}**\nTypes: **${pokemonTypes.join(" / ")}**`
-                );
+            if (isCorrect) {
+                winner = i.user;
+
+                await addPoints(player, interaction.channel, 1);
+
+
+                collector.stop("correct");
+            } else {
+                await i.reply({
+                    content: `❌ **Wrong answer, ${i.user.username}!**`,
+                    ephemeral: true
+                });
             }
         }
     });
 
     collector.on("end", async (_, reason) => {
-        if (reason === "time") {
-            const player = await getOrCreatePlayer(interaction);
-            const lang = player.language ?? "en";
-            const name = pokemon.names[lang] ?? pokemon.names["en"];
+        const player = await getOrCreatePlayer(
+            interaction.user,
+            interaction.guildId
+        );
 
-            await interaction.followUp(
-                `⏱ Time up!\nPokémon: **${name}**\nTypes: **${pokemon.types.join(" / ")}**`
-            );
+        const lang = player.language ?? "en";
+        const name = pokemon.names[lang] ?? pokemon.names["en"];
+        const types = pokemon.types.join(" / ");
+
+      
+
+        if (reason === "correct") {
+            await interaction.followUp({
+                content:
+                    
+                    `Pokémon: **${name}**\nTypes: **${types}**`,
+                
+            });
+        } else {
+            await interaction.followUp({
+                content:
+                    `⏱ **Time up!**\n` +
+                    `Pokémon: **${name}**\nTypes: **${types}**`,
+                
+            });
         }
     });
 }
+
+
 
 module.exports = { guess_types };

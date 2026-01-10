@@ -11,11 +11,16 @@ const generationRanges = require("../utils/generationRanges.js");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
 
+const attemptedUsers = new Set();
+
+
 async function guess_gen(interaction) {
+    const pokedexData = JSON.parse(
+        fs.readFileSync("./pokemon/pokedex.json", "utf8")
+    );
 
-    const pokedexData = JSON.parse(fs.readFileSync('./pokemon/pokedex.json', 'utf8'));
+    const attemptedUsers = new Set();
 
-    // sélectionner un Pokémon au hasard
     const min = 1;
     const max = 1025;
 
@@ -23,86 +28,104 @@ async function guess_gen(interaction) {
     const randomId = randomIdNum.toString().padStart(4, "0");
 
     const pokemon = pokedexData.find(p => p.id === randomId);
-    if (!pokemon) return interaction.reply("Pokémon non trouvé 😢");
+    if (!pokemon) {
+        return interaction.reply("Pokémon non trouvé 😢");
+    }
 
-    const filePath = `./pokemon/${pokemon.image_local}`;
-    const file = new AttachmentBuilder(filePath);
+    const file = new AttachmentBuilder(`./pokemon/${pokemon.image_local}`);
 
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setDescription("Which **generation** is this Pokémon from?")
-        .setImage(`attachment://${pokemon.image_local.split('/').pop()}`);
+        .setDescription("Which **generation** is this Pokémon?")
+        .setImage(`attachment://${pokemon.image_local.split("/").pop()}`);
 
-    //
-    // 🔘 9 BOUTONS GEN 1 → GEN 9
-    //
-    const row = new ActionRowBuilder()
-        .addComponents(
+    const rows = [
+        new ActionRowBuilder().addComponents(
             new ButtonBuilder().setCustomId("gen1").setLabel("Gen 1").setStyle(ButtonStyle.Primary),
             new ButtonBuilder().setCustomId("gen2").setLabel("Gen 2").setStyle(ButtonStyle.Primary),
             new ButtonBuilder().setCustomId("gen3").setLabel("Gen 3").setStyle(ButtonStyle.Primary),
             new ButtonBuilder().setCustomId("gen4").setLabel("Gen 4").setStyle(ButtonStyle.Primary),
-            new ButtonBuilder().setCustomId("gen5").setLabel("Gen 5").setStyle(ButtonStyle.Primary)
-        );
-
-    const row2 = new ActionRowBuilder()
-        .addComponents(
+            new ButtonBuilder().setCustomId("gen5").setLabel("Gen 5").setStyle(ButtonStyle.Primary),
+        ),
+        new ActionRowBuilder().addComponents(
             new ButtonBuilder().setCustomId("gen6").setLabel("Gen 6").setStyle(ButtonStyle.Primary),
             new ButtonBuilder().setCustomId("gen7").setLabel("Gen 7").setStyle(ButtonStyle.Primary),
             new ButtonBuilder().setCustomId("gen8").setLabel("Gen 8").setStyle(ButtonStyle.Primary),
-            new ButtonBuilder().setCustomId("gen9").setLabel("Gen 9").setStyle(ButtonStyle.Primary)
-        );
+            new ButtonBuilder().setCustomId("gen9").setLabel("Gen 9").setStyle(ButtonStyle.Primary),
+        )
+    ];
 
     await interaction.reply({
         embeds: [embed],
         files: [file],
-        components: [row, row2]
+        components: rows
     });
 
-    //
-    // 🎯 ATTENDRE LE CLICK DU USER
-    //
-    const filter = i => i.user.id === interaction.user.id;
+    const collector = interaction.channel.createMessageComponentCollector({
+        filter: i => !i.user.bot,
+        time: 15000
+    });
 
-    try {
-        const btn = await interaction.channel.awaitMessageComponent({
-            filter,
-            time: 15000
-        });
-
-        const chosenGen = Number(btn.customId.replace("gen", ""));
-
-        console.log("GEN CLICKED:", chosenGen);
-        console.log("POKÉMON ID:", randomIdNum);
-
-        //
-        //Vérifier si le Pokémon appartient à la génération cliquée
-        //
-        const range = generationRanges[chosenGen];
-        const isCorrect = randomIdNum >= range.start && randomIdNum <= range.end;
-
-        const player = await getOrCreatePlayer(interaction);
-
-        if (isCorrect) {
-            await btn.reply("✅ Correct!");
-            await addPoints(player, interaction.channel,0.5);
-        } else {
-            const lang = player.language ;
-            const name = pokemon.names[lang];
-
-            await btn.reply(`❌ Wrong! It was **Gen ${getPokemonGen(randomIdNum)}**.\nPokémon: **${name}**`);
+    collector.on("collect", async (btn) => {
+        // ⛔ already tried
+        if (attemptedUsers.has(btn.user.id)) {
+            return btn.reply({
+                content: "❌ You already used your attempt!",
+                ephemeral: true
+            });
         }
 
-    } catch (e) {
-        const player = await getOrCreatePlayer(interaction);
+        attemptedUsers.add(btn.user.id);
+        await btn.deferUpdate();
+
+        const chosenGen = Number(btn.customId.replace("gen", ""));
+        const range = generationRanges[chosenGen];
+
+        const isCorrect =
+            randomIdNum >= range.start &&
+            randomIdNum <= range.end;
+
+        const player = await getOrCreatePlayer(
+            btn.user,
+            interaction.guildId
+        );
+
+        const lang = player.language ?? "en";
+        const name =
+            pokemon.names[lang] ??
+            pokemon.names["en"];
+
+        if (isCorrect) {
+            collector.stop("win");
+
+            await interaction.followUp(
+                `✅ **${btn.user.username}** answered correctly!\nIt was **${name}** (Gen ${chosenGen})`
+            );
+
+            await addPoints(player, interaction.channel, 0.5);
+        } else {
+            await interaction.followUp(
+                `❌ **${btn.user.username}** answered **Gen ${chosenGen}**!`
+            );
+        }
+    });
+
+    collector.on("end", async (_, reason) => {
+        if (reason === "win") return;
+
+        const player = await getOrCreatePlayer(
+            interaction.user,
+            interaction.guildId
+        );
+
         const lang = player.language ?? "en";
         const name = pokemon.names[lang] ?? pokemon.names["en"];
 
-        return interaction.followUp(`⏱ Time up! It was **Gen ${getPokemonGen(randomIdNum)}**.\nPokémon: **${name}**`);
-    }
+        await interaction.followUp(
+            `⏱ Time up!\nCorrect answer: **Gen ${getPokemonGen(randomIdNum)}**\nPokémon: **${name}**`
+        );
+    });
 }
-
-
 
 function getPokemonGen(id) {
     for (const [gen, r] of Object.entries(generationRanges)) {
