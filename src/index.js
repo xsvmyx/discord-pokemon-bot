@@ -6,6 +6,7 @@ const { guess } = require('./commands/guess-name');
 const {setLang} = require('./commands/lang')
 const {guess_gen} = require('./commands/guess-gen');
 const {guess_types} = require("./commands/guess-types");
+const {help} = require("./commands/help");
 
 const client = new Client({
     intents: [
@@ -66,7 +67,10 @@ client.on('interactionCreate', async (interaction) => {
             break;
         case 'guess-types':
             await guess_types(interaction);
-            break;    
+            break; 
+        case 'help':
+            await help(interaction);
+            break;       
 
         default:
             console.log(`Unknown command: ${interaction.commandName}`);
