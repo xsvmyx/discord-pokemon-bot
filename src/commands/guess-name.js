@@ -4,9 +4,22 @@ const fs = require('fs');
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
 const generationRanges = require('../utils/generationRanges');
+const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
 
 
 async function guess(interaction) {
+
+    const channelId = interaction.channelId;
+
+    
+    if (isLocked(channelId)) {
+        return interaction.reply({
+        content: "⛔ A game is already running in this channel.",
+        ephemeral: true
+        });
+    }
+    lockChannel(channelId);
+
     const pokedexData = JSON.parse(
         fs.readFileSync('./pokemon/pokedex.json', 'utf8')
     );
@@ -29,6 +42,7 @@ async function guess(interaction) {
 
     const pokemon = pokedexData.find(p => p.id === randomId);
     if (!pokemon) {
+        unlockChannel(channelId);
         return interaction.reply("Pokémon non trouvé 😢");
     }
 
@@ -36,53 +50,47 @@ async function guess(interaction) {
 
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setDescription("Who's that Pokémon ?")
+        .setDescription("Who's that Pokémon?")
         .setImage(`attachment://${pokemon.image_local.split('/').pop()}`);
 
     await interaction.reply({ embeds: [embed], files: [file] });
 
-    const channel = interaction.channel;
-    const endTime = Date.now() + 12000;
-    let answered = false;
+    const collector = interaction.channel.createMessageCollector({
+        filter: msg => !msg.author.bot,
+        time: 12000
+    });
 
-    while (!answered && Date.now() < endTime) {
-        try {
-            const collected = await channel.awaitMessages({
-                max: 1,
-                time: endTime - Date.now()
-            });
+    collector.on("collect", async (msg) => {
+        const reply = msg.content.toLowerCase();
 
-            const replyMsg = collected.first();
-            if (!replyMsg || replyMsg.author.bot) continue;
+        const correct = Object.values(pokemon.names)
+            .some(n => n.toLowerCase() === reply);
 
-            const reply = replyMsg.content.toLowerCase();
-
-            const correct = Object.values(pokemon.names)
-                .some(n => n.toLowerCase() === reply);
-
-            if (correct) {
-                const player = await getOrCreatePlayer(
-                    replyMsg.author,
-                    interaction.guildId
-                );
-
-                await replyMsg.react("✅");
-                
-                if(genOption)
-                await addPoints(player, channel, 1);  
-                else await addPoints(player, channel, 2);
-
-                answered = true;
-            } else {
-                await replyMsg.react("❌");
-            }
-
-        } catch {
-            break;
+        if (!correct) {
+            await msg.react("❌");
+            return;
         }
-    }
 
-    if (!answered) {
+        const player = await getOrCreatePlayer(
+            msg.author,
+            interaction.guildId
+        );
+
+        await msg.react("✅");
+
+        await addPoints(
+            player,
+            interaction.channel,
+            genOption ? 1 : 2
+        );
+
+        collector.stop("win");
+    });
+
+    collector.on("end", async (_, reason) => {
+        unlockChannel(channelId);
+        if (reason === "win") return;
+
         const player = await getOrCreatePlayer(
             interaction.user,
             interaction.guildId
@@ -91,8 +99,10 @@ async function guess(interaction) {
         const lang = player.language ?? "en";
         const name = pokemon.names[lang] ?? pokemon.names["en"];
 
-        channel.send(`⏱ Time up! It was **${name}**.`);
-    }
+        interaction.channel.send(
+            `⏱ Time up! It was **${name}**.`
+        );
+    });
 }
 
 

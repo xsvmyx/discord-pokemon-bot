@@ -11,8 +11,22 @@ const fs = require("fs");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require("../utils/addPoints");
 const {ALL_TYPES} = require('../utils/allTypes');
+const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
+
 
 async function guess_types(interaction) {
+
+    const channelId = interaction.channelId;
+
+    
+    if (isLocked(channelId)) {
+        return interaction.reply({
+        content: "⛔ A game is already running in this channel.",
+        ephemeral: true
+        });
+    }
+
+    lockChannel(channelId);    
     const pokedexData = JSON.parse(
         fs.readFileSync("./pokemon/pokedex.json", "utf8")
     );
@@ -128,6 +142,8 @@ async function guess_types(interaction) {
     });
 
     collector.on("end", async (_, reason) => {
+        unlockChannel(channelId);
+
         const player = await getOrCreatePlayer(
             interaction.user,
             interaction.guildId
@@ -136,21 +152,23 @@ async function guess_types(interaction) {
         const lang = player.language ?? "en";
         const name = pokemon.names[lang] ?? pokemon.names["en"];
         const types = pokemon.types.join(" / ");
+        const gen = pokemon.gen;
 
       
 
         if (reason === "correct") {
+
             await interaction.followUp({
                 content:
                     
-                    `Pokémon: **${name}**\nTypes: **${types}**`,
+                    `Pokémon: **${name}**\nGen:**${gen}**\nTypes: **${types}**`,
                 
             });
         } else {
             await interaction.followUp({
                 content:
                     `⏱ **Time up!**\n` +
-                    `Pokémon: **${name}**\nTypes: **${types}**`,
+                    `Pokémon: **${name}**\nGen:**${gen}**\nTypes: **${types}**`,
                 
             });
         }

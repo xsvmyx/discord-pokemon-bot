@@ -10,11 +10,25 @@ const fs = require("fs");
 const generationRanges = require("../utils/generationRanges.js");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
+const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
 
-const attemptedUsers = new Set();
+
 
 
 async function guess_gen(interaction) {
+
+    const channelId = interaction.channelId;
+
+    
+    if (isLocked(channelId)) {
+        return interaction.reply({
+        content: "⛔ A game is already running in this channel.",
+        ephemeral: true
+        });
+    }
+
+    lockChannel(channelId);
+
     const pokedexData = JSON.parse(
         fs.readFileSync("./pokemon/pokedex.json", "utf8")
     );
@@ -29,6 +43,7 @@ async function guess_gen(interaction) {
 
     const pokemon = pokedexData.find(p => p.id === randomId);
     if (!pokemon) {
+        unlockChannel(channelId);
         return interaction.reply("Pokémon non trouvé 😢");
     }
 
@@ -94,12 +109,13 @@ async function guess_gen(interaction) {
         const name =
             pokemon.names[lang] ??
             pokemon.names["en"];
-
+        const types = pokemon.types.join(" / ");
+        
         if (isCorrect) {
             collector.stop("win");
 
             await interaction.followUp(
-                `✅ **${btn.user.username}** answered correctly!\nIt was **${name}** (Gen ${chosenGen})`
+                `✅ **${btn.user.username}** answered correctly!\nIt was **${name}**\nGen: **${chosenGen}**\nType(s): **${types}**`
             );
 
             await addPoints(player, interaction.channel, 0.5);
@@ -111,6 +127,7 @@ async function guess_gen(interaction) {
     });
 
     collector.on("end", async (_, reason) => {
+        unlockChannel(channelId);
         if (reason === "win") return;
 
         const player = await getOrCreatePlayer(
@@ -120,9 +137,11 @@ async function guess_gen(interaction) {
 
         const lang = player.language ?? "en";
         const name = pokemon.names[lang] ?? pokemon.names["en"];
+        const types = pokemon.types.join(" / ");
+        const gen = pokemon.gen;
 
         await interaction.followUp(
-            `⏱ Time up!\nCorrect answer: **Gen ${getPokemonGen(randomIdNum)}**\nPokémon: **${name}**`
+            `⏱ Time up!\n`+`**Gen: ${gen}**\nPokémon: **${name}**\nTypes: **${types}**`,
         );
     });
 }

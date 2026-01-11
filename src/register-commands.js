@@ -41,10 +41,6 @@ const commands = [
 
     
     {
-        name: 'hey',
-        description: 'Saying Hey',
-    },
-    {
         name: 'guess',
         description: "guessing a Pokémon's name in a given generation (no gen = among all gens)",
         options: [
