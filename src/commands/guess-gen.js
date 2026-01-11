@@ -11,7 +11,7 @@ const generationRanges = require("../utils/generationRanges.js");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
-
+const { pokedex } = require('../utils/pokedex.js');
 
 
 
@@ -29,9 +29,7 @@ async function guess_gen(interaction) {
 
     lockChannel(channelId);
 
-    const pokedexData = JSON.parse(
-        fs.readFileSync("./pokemon/pokedex.json", "utf8")
-    );
+    const pokedexData = pokedex;
 
     const attemptedUsers = new Set();
 

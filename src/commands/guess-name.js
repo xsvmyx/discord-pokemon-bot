@@ -5,7 +5,7 @@ const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
 const generationRanges = require('../utils/generationRanges');
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
-
+const { pokedex } = require('../utils/pokedex.js');
 
 async function guess(interaction) {
 
@@ -20,9 +20,7 @@ async function guess(interaction) {
     }
     lockChannel(channelId);
 
-    const pokedexData = JSON.parse(
-        fs.readFileSync('./pokemon/pokedex.json', 'utf8')
-    );
+    const pokedexData = pokedex;
 
     let genOption = interaction.options.get('gen')?.value;
 
@@ -98,9 +96,11 @@ async function guess(interaction) {
 
         const lang = player.language ?? "en";
         const name = pokemon.names[lang] ?? pokemon.names["en"];
+        const types = pokemon.types.join(" / ");
+        const gen = pokemon.gen;
 
         interaction.channel.send(
-            `⏱ Time up! It was **${name}**.`
+            `**⏱ Time up!\n**`+`Pokémon: **${name}**\nGen: **${gen}**\nTypes: **${types}**`,
         );
     });
 }

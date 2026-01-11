@@ -12,7 +12,7 @@ const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require("../utils/addPoints");
 const {ALL_TYPES} = require('../utils/allTypes');
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
-
+const { pokedex } = require('../utils/pokedex.js');
 
 async function guess_types(interaction) {
 
@@ -27,9 +27,7 @@ async function guess_types(interaction) {
     }
 
     lockChannel(channelId);    
-    const pokedexData = JSON.parse(
-        fs.readFileSync("./pokemon/pokedex.json", "utf8")
-    );
+    const pokedexData = pokedex;
 
     const pokemon = pokedexData[Math.floor(Math.random() * pokedexData.length)];
     const file = new AttachmentBuilder(`./pokemon/${pokemon.image_local}`);
@@ -161,14 +159,14 @@ async function guess_types(interaction) {
             await interaction.followUp({
                 content:
                     
-                    `Pokémon: **${name}**\nGen:**${gen}**\nTypes: **${types}**`,
+                    `Pokémon: **${name}**\nGen:** ${gen}**\nTypes: **${types}**`,
                 
             });
         } else {
             await interaction.followUp({
                 content:
                     `⏱ **Time up!**\n` +
-                    `Pokémon: **${name}**\nGen:**${gen}**\nTypes: **${types}**`,
+                    `Pokémon: **${name}**\nGen:** ${gen}**\nTypes: **${types}**`,
                 
             });
         }
