@@ -9,13 +9,14 @@ const playerSchema = new mongoose.Schema({
     points: { type: Number, default: 0 },
     level: { type: Number, default: 1 },
 
-    language: { type: String, default: "en" }
+    language: { type: String, default: "en" },
+
+    // 💰 économie
+    pokedollars: { type: Number, default: 0 },
+    lastDaily: { type: Date, default: null }
 });
 
 // unicité par serveur
 playerSchema.index({ userId: 1, guildId: 1 }, { unique: true });
 
 module.exports = mongoose.model("Player", playerSchema);
-
-
-/*Mongoose fait un mapping (JS ↔ MongoDB), et ce n’est qu’au moment de l’utilisation qu’on interroge MongoDB.*/

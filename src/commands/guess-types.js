@@ -106,6 +106,8 @@ async function guess_types(interaction) {
 
         // ✅ Validation
         if (i.isButton() && i.customId === "validate_types") {
+            await i.deferUpdate(); // ACK immédiat
+
             attemptedUsers.add(i.user.id);
 
             const chosenTypes = Object.values(selections)
@@ -128,15 +130,21 @@ async function guess_types(interaction) {
 
                 await addPoints(player, interaction.channel, 1);
 
+                // 🔒 IMPORTANT : on désactive TOUT
+                await interaction.editReply({
+                    components: []
+                });
 
                 collector.stop("correct");
+                return;
             } else {
-                await i.reply({
+                await i.followUp({
                     content: `❌ **Wrong answer, ${i.user.username}!**`,
                     ephemeral: true
                 });
             }
         }
+
     });
 
     collector.on("end", async (_, reason) => {

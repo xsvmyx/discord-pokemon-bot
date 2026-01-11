@@ -7,6 +7,7 @@ const {setLang} = require('./commands/lang')
 const {guess_gen} = require('./commands/guess-gen');
 const {guess_types} = require("./commands/guess-types");
 const {help} = require("./commands/help");
+const {daily} = require("./commands/daily");
 
 const client = new Client({
     intents: [
@@ -31,6 +32,7 @@ const client = new Client({
 
 client.on('clientReady', (c) => {
     console.log(`############# ${c.user.tag} is online`);
+
 });
                 
 
@@ -70,7 +72,10 @@ client.on('interactionCreate', async (interaction) => {
             break; 
         case 'help':
             await help(interaction);
-            break;       
+            break;
+        case 'daily':
+            await daily(interaction);   
+            break;    
 
         default:
             console.log(`Unknown command: ${interaction.commandName}`);
@@ -87,6 +92,7 @@ client.on('interactionCreate', async (interaction) => {
             
         );
         console.log("OKKK");
+
         
     } catch (e) {
         console.log("ERRRRR:", e);
@@ -100,6 +106,7 @@ client.login(process.env.TOKEN)
 
 // 🔧 Render keep-alive 
 const http = require("http");
+
 
 const server = http.createServer((req, res) => {
   // mini activité non persistante

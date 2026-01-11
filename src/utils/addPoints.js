@@ -3,6 +3,9 @@ async function addPoints(player, channel, pts) {
     
     player.points += pts;
 
+    const pokedollars  = pts *10;
+    player.pokedollars += pokedollars;
+
     let leveledUp = false;
 
     // Boucle au cas où gros gain d'XP (safe)
@@ -23,10 +26,10 @@ async function addPoints(player, channel, pts) {
 
     
     channel.send(
-        `🎉 **${player.username}** earns **${pts} point${pts !== 1 ? "s" : ""}**!\n` +
-        `They now have **${player.points}/${nextThreshold} points**.`
+    `🎉 **${player.username}** earns **${pts} point${pts !== 1 ? "s" : ""}**!\n` +
+    `💰 +${pokedollars} Pokédollars\n` +
+    `They now have **${player.points}/${nextThreshold} points**.`
     );
-
     //level up
     if (leveledUp) {
         channel.send(
