@@ -39,7 +39,7 @@ client.on('clientReady', (c) => {
 client.on("messageCreate", msg => {
   if(msg.author.bot) return;
 
-  console.log(msg.content);
+  //console.log(msg.content);
     
     if(msg.content === "shbob")
         msg.react("😀");
