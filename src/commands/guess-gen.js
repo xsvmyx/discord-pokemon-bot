@@ -6,12 +6,11 @@ const {
     AttachmentBuilder
 } = require("discord.js");
 
-const fs = require("fs");
 const generationRanges = require("../utils/generationRanges.js");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
-const { pokedex } = require('../utils/pokedex.js');
+const  pokedex  = require('../utils/pokedex.js');
 
 
 

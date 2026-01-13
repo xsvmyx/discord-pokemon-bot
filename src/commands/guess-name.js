@@ -1,11 +1,10 @@
 // interactions.js
 const { AttachmentBuilder, EmbedBuilder } = require('discord.js');
-const fs = require('fs');
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
 const generationRanges = require('../utils/generationRanges');
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
-const { pokedex } = require('../utils/pokedex.js');
+const  pokedex  = require('../utils/pokedex.js');
 
 async function guess(interaction) {
 

@@ -7,29 +7,29 @@ const {
     AttachmentBuilder
 } = require("discord.js");
 
-const fs = require("fs");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require("../utils/addPoints");
-const {ALL_TYPES} = require('../utils/allTypes');
+const { ALL_TYPES } = require("../utils/allTypes");
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
-const { pokedex } = require('../utils/pokedex.js');
+const pokedex = require("../utils/pokedex.js");
 
 async function guess_types(interaction) {
 
     const channelId = interaction.channelId;
 
-    
     if (isLocked(channelId)) {
         return interaction.reply({
-        content: "⛔ A game is already running in this channel.",
-        ephemeral: true
+            content: "⛔ A game is already running in this channel.",
+            ephemeral: true
         });
     }
 
-    lockChannel(channelId);    
-    const pokedexData = pokedex;
+    lockChannel(channelId);
 
-    const pokemon = pokedexData[Math.floor(Math.random() * pokedexData.length)];
+    const pokedexData = pokedex;
+    const id = Math.floor(Math.random() * pokedexData.length);
+    const pokemon = pokedexData[id];
+
     const file = new AttachmentBuilder(`./pokemon/${pokemon.image_local}`);
 
     const embed = new EmbedBuilder()
@@ -69,16 +69,11 @@ async function guess_types(interaction) {
         components
     });
 
-    // 🧠 ÉTAT DU JEU
-    const selections = {
-        type_1: "None",
-        type_2: "None"
-    };
-
+    // 🧠 ÉTAT DU JEU — MULTI-JOUEURS
+    const selections = new Map(); // Map<userId, { type_1, type_2 }>
     const attemptedUsers = new Set();
     let winner = null;
 
-    // 🔓 Tout le monde peut jouer (sauf bots)
     const filter = i => !i.user.bot;
 
     const collector = interaction.channel.createMessageComponentCollector({
@@ -99,18 +94,32 @@ async function guess_types(interaction) {
 
         // 🎛 Sélecteurs
         if (i.isStringSelectMenu()) {
-            selections[i.customId] = i.values[0];
+            const userId = i.user.id;
+
+            if (!selections.has(userId)) {
+                selections.set(userId, {
+                    type_1: "None",
+                    type_2: "None"
+                });
+            }
+
+            selections.get(userId)[i.customId] = i.values[0];
             await i.deferUpdate();
             return;
         }
 
         // ✅ Validation
         if (i.isButton() && i.customId === "validate_types") {
-            await i.deferUpdate(); // ACK immédiat
+            await i.deferUpdate();
 
             attemptedUsers.add(i.user.id);
 
-            const chosenTypes = Object.values(selections)
+            const userChoices = selections.get(i.user.id) ?? {
+                type_1: "None",
+                type_2: "None"
+            };
+
+            const chosenTypes = Object.values(userChoices)
                 .filter(t => t !== "None")
                 .sort();
 
@@ -130,7 +139,7 @@ async function guess_types(interaction) {
 
                 await addPoints(player, interaction.channel, 1);
 
-                // 🔒 IMPORTANT : on désactive TOUT
+                // 🔒 Désactive tous les composants
                 await interaction.editReply({
                     components: []
                 });
@@ -144,7 +153,6 @@ async function guess_types(interaction) {
                 });
             }
         }
-
     });
 
     collector.on("end", async (_, reason) => {
@@ -160,27 +168,23 @@ async function guess_types(interaction) {
         const types = pokemon.types.join(" / ");
         const gen = pokemon.gen;
 
-      
-
         if (reason === "correct") {
-
             await interaction.followUp({
                 content:
-                    
-                    `Pokémon: **${name}**\nGen:** ${gen}**\nTypes: **${types}**`,
-                
+                    `Pokémon: **${name}**\n` +
+                    `Gen: **${gen}**\n` +
+                    `Types: **${types}**`
             });
         } else {
             await interaction.followUp({
                 content:
                     `⏱ **Time up!**\n` +
-                    `Pokémon: **${name}**\nGen:** ${gen}**\nTypes: **${types}**`,
-                
+                    `Pokémon: **${name}**\n` +
+                    `Gen: **${gen}**\n` +
+                    `Types: **${types}**`
             });
         }
     });
 }
-
-
 
 module.exports = { guess_types };
