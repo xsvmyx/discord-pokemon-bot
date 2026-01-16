@@ -5,6 +5,10 @@ require('dotenv').config();
 
 const commands = [
     {
+        name: "me",
+        description:"shows your data such a level,Pokedollars...etc"
+    },
+    {
         name:"daily",
         description:"claim a daily amout of pokedollars :)"
     },

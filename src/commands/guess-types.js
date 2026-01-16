@@ -184,7 +184,7 @@ async function guess_types(interaction) {
                     `Types: **${types}**`
             });
         }
-        collector.stop("correct");
+        
     });
 }
 

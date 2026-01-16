@@ -1,18 +1,14 @@
 const { EmbedBuilder } = require("discord.js");
 const User = require("../models/Player");
+const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 
 const DAILY_AMOUNT = 200;
 const DAY = 1000 * 60 * 60 * 24;
 
 async function daily(interaction) {
-    const userId = interaction.user.id;
+    
 
-    let user = await User.findOne({ userId });
-
-    if (!user) {
-        user = await User.create({ userId });
-    }
-
+    let user = await getOrCreatePlayer(interaction.user,interaction.guildId);
     const now = Date.now();
 
     if (user.lastDaily && now - user.lastDaily.getTime() < DAY) {
