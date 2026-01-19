@@ -35,9 +35,12 @@ async function guess(interaction) {
     }
 
     const randomIdNum = Math.floor(Math.random() * (max - min + 1)) + min;
-    const randomId = randomIdNum.toString().padStart(4, '0');
+    const randomId = randomIdNum.toString().padStart(4, '0'); 
+   // const randomId = "0641";
+    const pokemons = pokedexData.filter(p => p.id === randomId);
     
-    const pokemon = pokedexData.find(p => p.id === randomId);
+    const pokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
+                    
     
     if (!pokemon) {
         unlockChannel(channelId);

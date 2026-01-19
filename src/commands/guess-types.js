@@ -25,10 +25,15 @@ async function guess_types(interaction) {
     }
 
     lockChannel(channelId);
+    
+    const min = 1;
+    const max = 1025;
 
-    const pokedexData = pokedex;
-    const id = Math.floor(Math.random() * pokedexData.length);
-    const pokemon = pokedexData[id];
+    const randomIdNum = Math.floor(Math.random() * (max - min + 1)) + min;
+    const randomId = randomIdNum.toString().padStart(4, "0");
+    const pokemons = pokedexData.filter(p => p.id === randomId);
+    
+    const pokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
 
     pixelMode = interaction.options.getBoolean("pixel") ?? false;
     const imageRelativePath = pixelMode

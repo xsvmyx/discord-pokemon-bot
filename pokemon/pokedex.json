@@ -1,4 +1,32 @@
-[
+[ {
+    "id": "0001",
+    "types": [
+      "Grass",
+      "Poison"
+    ],
+    "image_local": "images/0002.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/bulbasaur.jpg",
+    "names": {
+      "ja-Hrkt": "フシギダネ",
+      "roomaji": "Fushigidane",
+      "ko": "이상해씨",
+      "zh-Hant": "妙蛙種子",
+      "fr": "Bulbizarre",
+      "de": "Bisasam",
+      "es": "Bulbasaur",
+      "it": "Bulbasaur",
+      "en": "Bulbasaur",
+      "ja": "フシギダネ",
+      "zh-Hans": "妙蛙种子"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 20,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 1,
+    "menu_sprite": "sprites/0002.png"
+  },
   {
     "id": "0001",
     "types": [
@@ -10961,6 +10989,8 @@
     "gen": 3,
     "menu_sprite": "sprites/0385.png"
   },
+  
+
   {
     "id": "0386",
     "types": [
@@ -10980,6 +11010,7 @@
       "en": "Deoxys",
       "ja": "デオキシス",
       "zh-Hans": "代欧奇希斯"
+
     },
     "has_gender_differences": false,
     "hatch_counter": 120,
@@ -10988,6 +11019,96 @@
     "is_mythical": true,
     "gen": 3,
     "menu_sprite": "sprites/0386.png"
+  },
+    {
+    "id": "0386",
+    "types": [
+      "Psychic"
+    ],
+    "image_local": "images-special/386-2.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/deoxys.jpg",
+    "names": {
+      "ja-Hrkt": "デオキシス",
+      "roomaji": "Deoxys",
+      "ko": "테오키스",
+      "zh-Hant": "代歐奇希斯",
+      "fr": "Deoxys",
+      "de": "Deoxys",
+      "es": "Deoxys",
+      "it": "Deoxys",
+      "en": "Deoxys",
+      "ja": "デオキシス",
+      "zh-Hans": "代欧奇希斯",
+      "spe":"Deoxys attaque",
+      "spe2":"Deoxys Attack"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": true,
+    "gen": 3,
+    "menu_sprite": "sprites-special/386-attack.png"
+  },
+    {
+    "id": "0386",
+    "types": [
+      "Psychic"
+    ],
+    "image_local": "images-special/386-3.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/deoxys.jpg",
+    "names": {
+      "ja-Hrkt": "デオキシス",
+      "roomaji": "Deoxys Defence",
+      "ko": "테오키스",
+      "zh-Hant": "代歐奇希斯",
+      "fr": "Deoxys",
+      "de": "Deoxys",
+      "es": "Deoxys",
+      "it": "Deoxys",
+      "en": "Deoxys",
+      "ja": "デオキシス",
+      "zh-Hans": "代欧奇希斯",
+      "spe":"Deoxys Defense",
+      "spe2":"Deoxys Defence"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": true,
+    "gen": 3,
+    "menu_sprite": "sprites-special/386-defense.png"
+  },
+  {
+    "id": "0386",
+    "types": [
+      "Psychic"
+    ],
+    "image_local": "images-special/386-4.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/deoxys.jpg",
+    "names": {
+      "ja-Hrkt": "デオキシス",
+      "roomaji": "Deoxys Speed",
+      "ko": "테오키스",
+      "zh-Hant": "代歐奇希斯",
+      "fr": "Deoxys",
+      "de": "Deoxys",
+      "es": "Deoxys",
+      "it": "Deoxys",
+      "en": "Deoxys",
+      "ja": "デオキシス",
+      "zh-Hans": "代欧奇希斯",
+      "spe":"Deoxys Vitesse",
+      "spe2":"Deoxys Speed"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": true,
+    "gen": 3,
+    "menu_sprite": "sprites-special/386-speed.png"
   },
   {
     "id": "0387",
@@ -12003,7 +12124,8 @@
       "it": "Shellos",
       "en": "Shellos",
       "ja": "カラナクシ",
-      "zh-Hans": "无壳海兔"
+      "zh-Hans": "无壳海兔",
+      "spe":"Shellos west sea"
     },
     "has_gender_differences": false,
     "hatch_counter": 20,
@@ -12012,6 +12134,36 @@
     "is_mythical": false,
     "gen": 4,
     "menu_sprite": "sprites/0422.png"
+  },
+  {
+    "id": "0422",
+    "types": [
+      "Water"
+    ],
+    "image_local": "images-special/422-east-sea.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/shellos.jpg",
+    "names": {
+      "ja-Hrkt": "カラナクシ",
+      "roomaji": "Karanakushi",
+      "ko": "깝질무",
+      "zh-Hant": "無殼海兔",
+      "fr": "Sancoki",
+      "de": "Schalellos",
+      "es": "Shellos",
+      "it": "Shellos",
+      "en": "Shellos",
+      "ja": "カラナクシ",
+      "zh-Hans": "无壳海兔",
+      "spe": "Shellos east sea"
+
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 20,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 4,
+    "menu_sprite": "sprites-special/422-east-sea.png"
   },
   {
     "id": "0423",
@@ -12032,7 +12184,8 @@
       "it": "Gastrodon",
       "en": "Gastrodon",
       "ja": "トリトドン",
-      "zh-Hans": "海兔兽"
+      "zh-Hans": "海兔兽",
+      "spe":"Gastrodon west sea"
     },
     "has_gender_differences": false,
     "hatch_counter": 20,
@@ -12041,6 +12194,36 @@
     "is_mythical": false,
     "gen": 4,
     "menu_sprite": "sprites/0423.png"
+  },
+  {
+    "id": "0423",
+    "types": [
+      "Water",
+      "Ground"
+    ],
+    "image_local": "images-special/423-east-sea.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/gastrodon.jpg",
+    "names": {
+      "ja-Hrkt": "トリトドン",
+      "roomaji": "Toritodon",
+      "ko": "트리토돈",
+      "zh-Hant": "海兔獸",
+      "fr": "Tritosor",
+      "de": "Gastrodon",
+      "es": "Gastrodon",
+      "it": "Gastrodon",
+      "en": "Gastrodon",
+      "ja": "トリトドン",
+      "zh-Hans": "海兔兽",
+      "spe":"Gastrodon east sea"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 20,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 4,
+    "menu_sprite": "sprites-special/423-east-sea.png"
   },
   {
     "id": "0424",
@@ -13869,6 +14052,37 @@
     "is_mythical": false,
     "gen": 4,
     "menu_sprite": "sprites/0487.png"
+  },
+  {
+    "id": "0487",
+    "types": [
+      "Ghost",
+      "Dragon"
+    ],
+    "image_local": "images-special/487-origin.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/giratina.jpg",
+    "names": {
+      "ja-Hrkt": "ギラティナ",
+      "roomaji": "Giratina",
+      "ko": "기라티나",
+      "zh-Hant": "騎拉帝納",
+      "fr": "Giratina",
+      "de": "Giratina",
+      "es": "Giratina",
+      "it": "Giratina",
+      "en": "Giratina",
+      "ja": "ギラティナ",
+      "zh-Hans": "骑拉帝纳",
+      "spe":"Giratina originel",
+      "spe2":"Giratina origin"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 4,
+    "menu_sprite": "sprites-special/487-origin.png"
   },
   {
     "id": "0488",
@@ -16648,6 +16862,64 @@
     "gen": 5,
     "menu_sprite": "sprites/0585.png"
   },
+    {
+    "id": "0585",
+    "types": [
+      "Normal",
+      "Grass"
+    ],
+    "image_local": "images-special/585-summer.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/deerling.jpg",
+    "names": {
+      "ja-Hrkt": "シキジカ",
+      "roomaji": "Shikijika",
+      "ko": "사철록",
+      "zh-Hant": "四季鹿",
+      "fr": "Vivaldaim",
+      "de": "Sesokitz",
+      "es": "Deerling",
+      "it": "Deerling",
+      "en": "Deerling",
+      "ja": "シキジカ",
+      "zh-Hans": "四季鹿"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 20,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/585-summer.png"
+  },
+    {
+    "id": "0585",
+    "types": [
+      "Normal",
+      "Grass"
+    ],
+    "image_local": "images-special/585-autumn.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/deerling.jpg",
+    "names": {
+      "ja-Hrkt": "シキジカ",
+      "roomaji": "Shikijika",
+      "ko": "사철록",
+      "zh-Hant": "四季鹿",
+      "fr": "Vivaldaim",
+      "de": "Sesokitz",
+      "es": "Deerling",
+      "it": "Deerling",
+      "en": "Deerling",
+      "ja": "シキジカ",
+      "zh-Hans": "四季鹿"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 20,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/585-autumn.png"
+  },
   {
     "id": "0586",
     "types": [
@@ -16670,12 +16942,95 @@
       "zh-Hans": "萌芽鹿"
     },
     "has_gender_differences": false,
-    "hatch_counter": 20,
     "is_baby": false,
     "is_legendary": false,
     "is_mythical": false,
     "gen": 5,
     "menu_sprite": "sprites/0586.png"
+  },
+    {
+    "id": "0586",
+    "types": [
+      "Normal",
+      "Grass"
+    ],
+    "image_local": "images-special/586-summer.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/sawsbuck.jpg",
+    "names": {
+      "ja-Hrkt": "メブキジカ",
+      "roomaji": "Mebukijika",
+      "ko": "바라철록",
+      "zh-Hant": "萌芽鹿",
+      "fr": "Haydaim",
+      "de": "Kronjuwild",
+      "es": "Sawsbuck",
+      "it": "Sawsbuck",
+      "en": "Sawsbuck",
+      "ja": "メブキジカ",
+      "zh-Hans": "萌芽鹿"
+    },
+    "has_gender_differences": false,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/586-summer.png"
+  },
+    {
+    "id": "0586",
+    "types": [
+      "Normal",
+      "Grass"
+    ],
+    "image_local": "images-special/586-autumn.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/sawsbuck.jpg",
+    "names": {
+      "ja-Hrkt": "メブキジカ",
+      "roomaji": "Mebukijika",
+      "ko": "바라철록",
+      "zh-Hant": "萌芽鹿",
+      "fr": "Haydaim",
+      "de": "Kronjuwild",
+      "es": "Sawsbuck",
+      "it": "Sawsbuck",
+      "en": "Sawsbuck",
+      "ja": "メブキジカ",
+      "zh-Hans": "萌芽鹿"
+    },
+    "has_gender_differences": false,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/586-autumn.png"
+  },
+    {
+    "id": "0586",
+    "types": [
+      "Normal",
+      "Grass"
+    ],
+    "image_local": "images-special/586-winter.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/sawsbuck.jpg",
+    "names": {
+      "ja-Hrkt": "メブキジカ",
+      "roomaji": "Mebukijika",
+      "ko": "바라철록",
+      "zh-Hant": "萌芽鹿",
+      "fr": "Haydaim",
+      "de": "Kronjuwild",
+      "es": "Sawsbuck",
+      "it": "Sawsbuck",
+      "en": "Sawsbuck",
+      "ja": "メブキジカ",
+      "zh-Hans": "萌芽鹿"
+    },
+    "has_gender_differences": false,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/586-winter.png"
   },
   {
     "id": "0587",
@@ -18238,7 +18593,8 @@
       "it": "Tornadus",
       "en": "Tornadus",
       "ja": "トルネロス",
-      "zh-Hans": "龙卷云"
+      "zh-Hans": "龙卷云",
+      "spe": "Tornadus incarnate"
     },
     "has_gender_differences": false,
     "hatch_counter": 120,
@@ -18247,6 +18603,35 @@
     "is_mythical": false,
     "gen": 5,
     "menu_sprite": "sprites/0641.png"
+  },
+    {
+    "id": "0641",
+    "types": [
+      "Flying"
+    ],
+    "image_local": "images-special/641-therian.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/tornadus.jpg",
+    "names": {
+      "ja-Hrkt": "トルネロス",
+      "roomaji": "Tornelos",
+      "ko": "토네로스",
+      "zh-Hant": "龍捲雲",
+      "fr": "Boréas",
+      "de": "Boreos",
+      "es": "Tornadus",
+      "it": "Tornadus",
+      "en": "Tornadus",
+      "ja": "トルネロス",
+      "zh-Hans": "龙卷云",
+      "spe": "Tornadus therian"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/641-therian.png"
   },
   {
     "id": "0642",
@@ -18267,7 +18652,8 @@
       "it": "Thundurus",
       "en": "Thundurus",
       "ja": "ボルトロス",
-      "zh-Hans": "雷电云"
+      "zh-Hans": "雷电云",
+       "spe": "Thundurus incarnate"
     },
     "has_gender_differences": false,
     "hatch_counter": 120,
@@ -18276,6 +18662,36 @@
     "is_mythical": false,
     "gen": 5,
     "menu_sprite": "sprites/0642.png"
+  },
+    {
+    "id": "0642",
+    "types": [
+      "Electric",
+      "Flying"
+    ],
+    "image_local": "images-special/642-therian.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/thundurus.jpg",
+    "names": {
+      "ja-Hrkt": "ボルトロス",
+      "roomaji": "Voltolos",
+      "ko": "볼트로스",
+      "zh-Hant": "雷電雲",
+      "fr": "Fulguris",
+      "de": "Voltolos",
+      "es": "Thundurus",
+      "it": "Thundurus",
+      "en": "Thundurus",
+      "ja": "ボルトロス",
+      "zh-Hans": "雷电云",
+      "spe": "Thundurus therian"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/642-therian.png"
   },
   {
     "id": "0643",
@@ -18354,7 +18770,8 @@
       "it": "Landorus",
       "en": "Landorus",
       "ja": "ランドロス",
-      "zh-Hans": "土地云"
+      "zh-Hans": "土地云",
+      "spe": "Landorus incarnate"
     },
     "has_gender_differences": false,
     "hatch_counter": 120,
@@ -18363,6 +18780,36 @@
     "is_mythical": false,
     "gen": 5,
     "menu_sprite": "sprites/0645.png"
+  },
+    {
+    "id": "0645",
+    "types": [
+      "Ground",
+      "Flying"
+    ],
+    "image_local": "images-special/645-therian.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/landorus.jpg",
+    "names": {
+      "ja-Hrkt": "ランドロス",
+      "roomaji": "Landlos",
+      "ko": "랜드로스",
+      "zh-Hant": "土地雲",
+      "fr": "Démétéros",
+      "de": "Demeteros",
+      "es": "Landorus",
+      "it": "Landorus",
+      "en": "Landorus",
+      "ja": "ランドロス",
+      "zh-Hans": "土地云",
+      "spe": "Landorus therian"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/645-therian.png"
   },
   {
     "id": "0646",
@@ -18394,6 +18841,67 @@
     "menu_sprite": "sprites/0646.png"
   },
   {
+    "id": "0646",
+    "types": [
+      "Dragon",
+      "Ice"
+    ],
+    "image_local": "images-special/646-black.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/kyurem.jpg",
+    "names": {
+      "ja-Hrkt": "ブラックキュレム",
+      "roomaji": "Burakku Kyuremu",
+      "ko": "블랙큐레무",
+      "zh-Hant": "闇黑酋雷姆",
+      "fr": "Kyurem Noir",
+      "de": "Schwarzes Kyurem",
+      "es": "Kyurem Negro",
+      "it": "Kyurem Nero",
+      "en": "Kyurem Black",
+      "ja": "ブラックキュレム",
+      "zh-Hans": "暗黑酋雷姆",
+      "spe":"Kyurem"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/646-black.png"
+  },
+    {
+    "id": "0646",
+    "types": [
+      "Dragon",
+      "Ice"
+    ],
+    "image_local": "images-special/646-white.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/kyurem.jpg",
+    "names": {
+      "ja-Hrkt": "ホワイトキュレム",
+      "roomaji": "Howaito Kyuremu",
+      "ko": "화이트큐레무",
+      "zh-Hant": "焰白酋雷姆",
+      "fr": "Kyurem Blanc",
+      "de": "Weißes Kyurem",
+      "es": "Kyurem Blanco",
+      "it": "Kyurem Bianco",
+      "en": "Kyurem White",
+      "ja": "ホワイトキュレム",
+      "zh-Hans": "焰白酋雷姆",
+      "spe": "Kyurem"
+    },
+
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 5,
+    "menu_sprite": "sprites-special/646-white.png"
+  },
+  {
     "id": "0647",
     "types": [
       "Water",
@@ -18412,7 +18920,8 @@
       "it": "Keldeo",
       "en": "Keldeo",
       "ja": "ケルディオ",
-      "zh-Hans": "凯路迪欧"
+      "zh-Hans": "凯路迪欧",
+      "spe":"Keldeo Normal"
     },
     "has_gender_differences": false,
     "hatch_counter": 80,
@@ -18421,6 +18930,36 @@
     "is_mythical": true,
     "gen": 5,
     "menu_sprite": "sprites/0647.png"
+  },
+    {
+    "id": "0647",
+    "types": [
+      "Water",
+      "Fighting"
+    ],
+    "image_local": "images-special/647-resolute.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/keldeo.jpg",
+    "names": {
+      "ja-Hrkt": "ケルディオ",
+      "roomaji": "Keldeo",
+      "ko": "케르디오",
+      "zh-Hant": "凱路迪歐",
+      "fr": "Keldeo",
+      "de": "Keldeo",
+      "es": "Keldeo",
+      "it": "Keldeo",
+      "en": "Keldeo",
+      "ja": "ケルディオ",
+      "zh-Hans": "凯路迪欧",
+      "spe":"Keldeo Resolute"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 80,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": true,
+    "gen": 5,
+    "menu_sprite": "sprites-special/647-resolute.png"
   },
   {
     "id": "0648",
@@ -18441,7 +18980,8 @@
       "it": "Meloetta",
       "en": "Meloetta",
       "ja": "メロエッタ",
-      "zh-Hans": "美洛耶塔"
+      "zh-Hans": "美洛耶塔",
+      "spe": "Meloetta Aria"
     },
     "has_gender_differences": false,
     "hatch_counter": 120,
@@ -18450,6 +18990,37 @@
     "is_mythical": true,
     "gen": 5,
     "menu_sprite": "sprites/0648.png"
+  },
+   {
+    "id": "0648",
+    "types": [
+      "Normal",
+      "Psychic"
+    ],
+    "image_local": "images-special/648-pirouette.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/meloetta.jpg",
+    "names": {
+      "ja-Hrkt": "メロエッタ",
+      "roomaji": "Meloetta",
+      "ko": "메로엣타",
+      "zh-Hant": "美洛耶塔",
+      "fr": "Meloetta",
+      "de": "Meloetta",
+      "es": "Meloetta",
+      "it": "Meloetta",
+      "en": "Meloetta",
+      "ja": "メロエッタ",
+      "zh-Hans": "美洛耶塔",
+      "spe": "Meloetta pirouette"
+
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": true,
+    "gen": 5,
+    "menu_sprite": "sprites-special/648-pirouette.png"
   },
   {
     "id": "0649",
@@ -19012,7 +19583,9 @@
       "it": "Pyroar",
       "en": "Pyroar",
       "ja": "カエンジシ",
-      "zh-Hans": "火炎狮"
+      "zh-Hans": "火炎狮",
+      "spe":"Pyroar male"
+      
     },
     "has_gender_differences": true,
     "hatch_counter": 20,
@@ -19021,6 +19594,36 @@
     "is_mythical": false,
     "gen": 6,
     "menu_sprite": "sprites/0668.png"
+  },
+    {
+    "id": "0668",
+    "types": [
+      "Fire",
+      "Normal"
+    ],
+    "image_local": "images-special/668-f.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/pyroar.jpg",
+    "names": {
+      "ja-Hrkt": "カエンジシ",
+      "roomaji": "Kaenjishi",
+      "ko": "화염레오",
+      "zh-Hant": "火炎獅",
+      "fr": "Némélios",
+      "de": "Pyroleo",
+      "es": "Pyroar",
+      "it": "Pyroar",
+      "en": "Pyroar",
+      "ja": "カエンジシ",
+      "zh-Hans": "火炎狮",
+      "spe":"Pyroar female"
+    },
+    "has_gender_differences": true,
+    "hatch_counter": 20,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 6,
+    "menu_sprite": "sprites-special/668-f.png"
   },
   {
     "id": "0669",
@@ -19293,8 +19896,10 @@
       "it": "Meowstic",
       "en": "Meowstic",
       "ja": "ニャオニクス",
-      "zh-Hans": "超能妙喵"
+      "zh-Hans": "超能妙喵",
+      "spe": "Meowstic male"
     },
+    
     "has_gender_differences": true,
     "hatch_counter": 20,
     "is_baby": false,
@@ -19302,6 +19907,36 @@
     "is_mythical": false,
     "gen": 6,
     "menu_sprite": "sprites/0678.png"
+  },
+    {
+    "id": "0678",
+    "types": [
+      "Psychic"
+    ],
+    "image_local": "images-special/678-f.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/meowstic.jpg",
+    "names": {
+      "ja-Hrkt": "ニャオニクス",
+      "roomaji": "Nyaonix",
+      "ko": "냐오닉스",
+      "zh-Hant": "超能妙喵",
+      "fr": "Mistigrix",
+      "de": "Psiaugon",
+      "es": "Meowstic",
+      "it": "Meowstic",
+      "en": "Meowstic",
+      "ja": "ニャオニクス",
+      "zh-Hans": "超能妙喵",
+      "spe": "Meowstic female"
+    },
+    
+    "has_gender_differences": true,
+    "hatch_counter": 20,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 6,
+    "menu_sprite": "sprites-special/678-f.png"
   },
   {
     "id": "0679",
@@ -19389,6 +20024,35 @@
     "is_mythical": false,
     "gen": 6,
     "menu_sprite": "sprites/0681.png"
+  },
+    {
+    "id": "0681",
+    "types": [
+      "Steel",
+      "Ghost"
+    ],
+    "image_local": "images-special/681-blade.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/aegislash.jpg",
+    "names": {
+      "ja-Hrkt": "ギルガルド",
+      "roomaji": "Gillgard",
+      "ko": "킬가르도",
+      "zh-Hant": "堅盾劍怪",
+      "fr": "Exagide",
+      "de": "Durengard",
+      "es": "Aegislash",
+      "it": "Aegislash",
+      "en": "Aegislash",
+      "ja": "ギルガルド",
+      "zh-Hans": "坚盾剑怪"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 20,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": false,
+    "gen": 6,
+    "menu_sprite": "sprites-special/681-blade.png"
   },
   {
     "id": "0682",
@@ -20440,7 +21104,8 @@
       "it": "Zygarde",
       "en": "Zygarde",
       "ja": "ジガルデ",
-      "zh-Hans": "基格尔德"
+      "zh-Hans": "基格尔德",
+      "spe":"Zygarde 50%"
     },
     "has_gender_differences": false,
     "hatch_counter": 120,
@@ -20449,6 +21114,66 @@
     "is_mythical": false,
     "gen": 6,
     "menu_sprite": "sprites/0718.png"
+  },
+   {
+    "id": "0718",
+    "types": [
+      "Dragon",
+      "Ground"
+    ],
+    "image_local": "images-special/718-10.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/zygarde.jpg",
+    "names": {
+      "ja-Hrkt": "ジガルデ",
+      "roomaji": "Zygarde",
+      "ko": "지가르데",
+      "zh-Hant": "基格爾德",
+      "fr": "Zygarde",
+      "de": "Zygarde",
+      "es": "Zygarde",
+      "it": "Zygarde",
+      "en": "Zygarde",
+      "ja": "ジガルデ",
+      "zh-Hans": "基格尔德",
+      "spe":"Zygarde 10%"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 6,
+    "menu_sprite": "sprites-special/718-10.png"
+  },
+   {
+    "id": "0718",
+    "types": [
+      "Dragon",
+      "Ground"
+    ],
+    "image_local": "images-special/718-100.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/zygarde.jpg",
+    "names": {
+      "ja-Hrkt": "ジガルデ",
+      "roomaji": "Zygarde",
+      "ko": "지가르데",
+      "zh-Hant": "基格爾德",
+      "fr": "Zygarde",
+      "de": "Zygarde",
+      "es": "Zygarde",
+      "it": "Zygarde",
+      "en": "Zygarde",
+      "ja": "ジガルデ",
+      "zh-Hans": "基格尔德",
+      "spe":"Zygarde 100%"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 6,
+    "menu_sprite": "sprites-special/718-100.png"
   },
   {
     "id": "0719",
@@ -20507,6 +21232,36 @@
     "is_mythical": true,
     "gen": 6,
     "menu_sprite": "sprites/0720.png"
+  },
+  {
+    "id": "0720",
+    "types": [
+      "Psychic",
+      "Ghost"
+    ],
+    "image_local": "images-special/720-unbound.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/hoopa.jpg",
+    "names": {
+      "ja-Hrkt": "フーパ",
+      "roomaji": "Hoopa",
+      "ko": "후파",
+      "zh-Hant": "胡帕",
+      "fr": "Hoopa",
+      "de": "Hoopa",
+      "es": "Hoopa",
+      "it": "Hoopa",
+      "en": "Hoopa",
+      "ja": "フーパ",
+      "zh-Hans": "胡帕",
+      "spe":"Hoopa Unbound"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": false,
+    "is_mythical": true,
+    "gen": 6,
+    "menu_sprite": "sprites-special/720-unbound.png"
   },
   {
     "id": "0721",

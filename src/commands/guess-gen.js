@@ -38,7 +38,10 @@ async function guess_gen(interaction) {
     const randomIdNum = Math.floor(Math.random() * (max - min + 1)) + min;
     const randomId = randomIdNum.toString().padStart(4, "0");
 
-    const pokemon = pokedexData.find(p => p.id === randomId);
+    const pokemons = pokedexData.filter(p => p.id === randomId);
+    
+    const pokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
+
     if (!pokemon) {
         unlockChannel(channelId);
         return interaction.reply("Pokémon non trouvé 😢");
