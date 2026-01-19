@@ -8,7 +8,7 @@ const {guess_gen} = require('./commands/guess-gen');
 const {guess_types} = require("./commands/guess-types");
 const {help} = require("./commands/help");
 const {daily} = require("./commands/daily");
-const {me} = require("./commands/me");
+const {check} = require("./commands/check");
 
 const client = new Client({
     intents: [
@@ -57,7 +57,7 @@ client.on('interactionCreate', async (interaction) => {
 
     switch (interaction.commandName) {
 
-        case 'guess':
+        case 'guess-name':
             await guess(interaction);
             break;
 
@@ -77,8 +77,8 @@ client.on('interactionCreate', async (interaction) => {
         case 'daily':
             await daily(interaction);   
             break;    
-        case 'me':
-            await me(interaction);
+        case 'check':
+            await check(interaction);
             break;
 
         default:

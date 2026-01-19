@@ -36,19 +36,33 @@ async function guess(interaction) {
 
     const randomIdNum = Math.floor(Math.random() * (max - min + 1)) + min;
     const randomId = randomIdNum.toString().padStart(4, '0');
-
+    
     const pokemon = pokedexData.find(p => p.id === randomId);
+    
     if (!pokemon) {
         unlockChannel(channelId);
         return interaction.reply("Pokémon non trouvé 😢");
     }
 
-    const file = new AttachmentBuilder(`./pokemon/${pokemon.image_local}`);
+    const basePoints = genOption ? 1 : 2;
+
+    pixelMode = interaction.options.getBoolean("pixel") ?? false;
+
+    const imageRelativePath = pixelMode
+    ? pokemon.menu_sprite
+    : pokemon.image_local;
+
+    const pt = basePoints + (pixelMode ? 0.5 : 0);
+
+
+    const imageFullPath = `./pokemon/${imageRelativePath}`;
+
+    const file = new AttachmentBuilder(imageFullPath);
 
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
         .setDescription("Who's that Pokémon?")
-        .setImage(`attachment://${pokemon.image_local.split('/').pop()}`);
+        .setImage(`attachment://${imageFullPath.split('/').pop()}`);
 
     await interaction.reply({ embeds: [embed], files: [file] });
 
@@ -61,7 +75,7 @@ async function guess(interaction) {
         const reply = msg.content.toLowerCase();
 
         const correct = Object.values(pokemon.names)
-            .some(n => n.toLowerCase() === reply);
+            .some(n => normalize(n) === normalize(reply));
 
         if (!correct) {
             await msg.react("❌");
@@ -78,7 +92,7 @@ async function guess(interaction) {
         await addPoints(
             player,
             interaction.channel,
-            genOption ? 1 : 2
+            pt
         );
 
         collector.stop("win");
@@ -110,6 +124,13 @@ module.exports = { guess };
 
 
 
+function normalize(str) {
+  return str
+    .normalize("NFD")               // sépare lettres / accents
+    .replace(/[\u0300-\u036f]/g, "") // supprime les accents
+    .toLowerCase()
+    .trim();
+}
 
 
 

@@ -5,9 +5,18 @@ require('dotenv').config();
 
 const commands = [
     {
-        name: "me",
-        description:"shows your data such a level,Pokedollars...etc"
+    name: "check",
+    description: "shows player's data such as level, Pokedollars, etc",
+    options: [
+        {
+        name: "player",
+        description: "The player to check",
+        type: ApplicationCommandOptionType.User,
+        required: false
+        }
+    ]
     },
+
     {
         name:"daily",
         description:"claim a daily amout of pokedollars :)"
@@ -19,42 +28,58 @@ const commands = [
     },
     {
         name:'guess-types',
-        description:"guess a Pokémon's type(s)"
+        description:"guess a Pokémon's type(s)",
+        options:[
+            {
+            name: "pixel",
+            description: "Use pixel sprite",
+            type: ApplicationCommandOptionType.Boolean,
+            required: false
+            }
+        ]
     },
     {
-        name:'guess-gen',
-        description:"guess a Pokémon's generation",
+        name: "guess-gen",
+        description: "guess a Pokémon's generation",
+        options: [
+            {
+            name: "pixel",
+            description: "Use pixel sprite",
+            type: ApplicationCommandOptionType.Boolean,
+            required: false
+            }
+        ]
+    },
 
-    },
     {
-    name: 'lang',
-    description: "Set your preferred language for Pokémon names",
-    options: [
-        {
-            name: "language",
-            description: "Choose your language",
-            type: ApplicationCommandOptionType.String,
-            required: true,
-            choices: [
-                { name: "English", value: "en" },
-                { name: "French", value: "fr" },
-                { name: "German", value: "de" },
-                { name: "Spanish", value: "es" },
-                { name: "Italian", value: "it" },
-                { name: "Japanese (Hiragana/Katakana)", value: "ja-Hrkt" },
-                { name: "Japanese (Kanji)", value: "ja" },
-                { name: "Romaji", value: "roomaji" },
-                { name: "Korean", value: "ko" },
-                { name: "Chinese (Traditional)", value: "zh-Hant" },
-                { name: "Chinese (Simplified)", value: "zh-Hans" }
-            ]
-        }
-    ]
+        name: 'lang',
+        description: "Set your preferred language for Pokémon names",
+        options: [
+            {
+                name: "language",
+                description: "Choose your language",
+                type: ApplicationCommandOptionType.String,
+                required: true,
+                choices: [
+                    { name: "English", value: "en" },
+                    { name: "French", value: "fr" },
+                    { name: "German", value: "de" },
+                    { name: "Spanish", value: "es" },
+                    { name: "Italian", value: "it" },
+                    { name: "Japanese (Hiragana/Katakana)", value: "ja-Hrkt" },
+                    { name: "Japanese (Kanji)", value: "ja" },
+                    { name: "Romaji", value: "roomaji" },
+                    { name: "Korean", value: "ko" },
+                    { name: "Chinese (Traditional)", value: "zh-Hant" },
+                    { name: "Chinese (Simplified)", value: "zh-Hans" }
+                ]
+            }
+        ]
 },
 
     
     {
-        name: 'guess',
+        name: 'guess-name',
         description: "guessing a Pokémon's name in a given generation (no gen = among all gens)",
         options: [
             {
@@ -99,6 +124,12 @@ const commands = [
                                     value: 9,
                                 },
                         ],
+            },
+            {
+            name: "pixel",
+            description: "Use pixel sprite",
+            type: ApplicationCommandOptionType.Boolean,
+            required: false
             }
         ]
     },
@@ -117,6 +148,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
         await rest.put(
             //Routes.applicationCommands(process.env.CLIENT_ID),
             Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+        
 
             { body: commands }
         );

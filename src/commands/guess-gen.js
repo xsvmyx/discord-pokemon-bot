@@ -17,7 +17,7 @@ const  pokedex  = require('../utils/pokedex.js');
 async function guess_gen(interaction) {
 
     const channelId = interaction.channelId;
-
+    
     
     if (isLocked(channelId)) {
         return interaction.reply({
@@ -44,12 +44,24 @@ async function guess_gen(interaction) {
         return interaction.reply("Pokémon non trouvé 😢");
     }
 
-    const file = new AttachmentBuilder(`./pokemon/${pokemon.image_local}`);
+    pixelMode = interaction.options.getBoolean("pixel") ?? false;
+    const imageRelativePath = pixelMode
+    ? pokemon.menu_sprite
+    : pokemon.image_local;
+    const pt = pixelMode ? 1 : 0.5;
+
+
+    const imageFullPath = `./pokemon/${imageRelativePath}`;
+
+    const file = new AttachmentBuilder(imageFullPath);
 
     const embed = new EmbedBuilder()
-        .setColor(0x0099ff)
-        .setDescription("Which **generation** is this Pokémon?")
-        .setImage(`attachment://${pokemon.image_local.split("/").pop()}`);
+    .setColor(0x0099ff)
+    .setDescription("Which **generation** is this Pokémon?")
+    .setImage(`attachment://${imageRelativePath.split("/").pop()}`);
+
+  
+
 
     const rows = [
         new ActionRowBuilder().addComponents(
@@ -115,7 +127,7 @@ async function guess_gen(interaction) {
                 `✅ **${btn.user.username}** answered correctly!\nIt was **${name}**\nGen: **${chosenGen}**\nType(s): **${types}**`
             );
 
-            await addPoints(player, interaction.channel, 0.5);
+            await addPoints(player, interaction.channel, pt);
         } else {
             await interaction.followUp(
                 `❌ **${btn.user.username}** answered **Gen ${chosenGen}**!`

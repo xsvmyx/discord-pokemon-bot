@@ -30,12 +30,23 @@ async function guess_types(interaction) {
     const id = Math.floor(Math.random() * pokedexData.length);
     const pokemon = pokedexData[id];
 
-    const file = new AttachmentBuilder(`./pokemon/${pokemon.image_local}`);
+    pixelMode = interaction.options.getBoolean("pixel") ?? false;
+    const imageRelativePath = pixelMode
+    ? pokemon.menu_sprite
+    : pokemon.image_local;
+
+    const pt = pixelMode ? 1.5 : 1;
+
+
+    const imageFullPath = `./pokemon/${imageRelativePath}`;
+
+    const file = new AttachmentBuilder(imageFullPath);
+
 
     const embed = new EmbedBuilder()
         .setColor(0x0099ff)
         .setDescription("Guess the **types** of this Pokémon")
-        .setImage(`attachment://${pokemon.image_local.split("/").pop()}`);
+        .setImage(`attachment://${imageFullPath.split("/").pop()}`);
 
     const options = ALL_TYPES.map(t => ({
         label: t,
@@ -137,7 +148,7 @@ async function guess_types(interaction) {
             if (isCorrect) {
                 winner = i.user;
 
-                await addPoints(player, interaction.channel, 1);
+                await addPoints(player, interaction.channel, pt);
 
                 // 🔒 Désactive tous les composants
                 await interaction.editReply({
