@@ -13,7 +13,13 @@ const playerSchema = new mongoose.Schema({
 
     // 💰 économie
     pokedollars: { type: Number, default: 0 },
-    lastDaily: { type: Date, default: null }
+    lastDaily: { type: Date, default: null },
+
+
+    ownedGifs: {
+    type: [String],
+    default: []
+  }
 });
 
 // unicité par serveur

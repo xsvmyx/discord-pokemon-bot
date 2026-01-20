@@ -9,6 +9,8 @@ const {guess_types} = require("./commands/guess-types");
 const {help} = require("./commands/help");
 const {daily} = require("./commands/daily");
 const {check} = require("./commands/check");
+const {shop} = require("./commands/shop");
+
 
 const client = new Client({
     intents: [
@@ -80,6 +82,9 @@ client.on('interactionCreate', async (interaction) => {
         case 'check':
             await check(interaction);
             break;
+        case 'shop':
+            await shop(interaction);
+            break;   
 
         default:
             console.log(`Unknown command: ${interaction.commandName}`);

@@ -11,7 +11,7 @@ const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require("../utils/addPoints");
 const { ALL_TYPES } = require("../utils/allTypes");
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
-const pokedex = require("../utils/pokedex.js");
+const pokedexData  = require("../utils/pokedex.js");
 
 async function guess_types(interaction) {
 
@@ -25,6 +25,8 @@ async function guess_types(interaction) {
     }
 
     lockChannel(channelId);
+
+    
     
     const min = 1;
     const max = 1025;

@@ -5,6 +5,11 @@ require('dotenv').config();
 
 const commands = [
     {
+        name:"shop",
+        description: "access to the Pokebot shop to buy some boosters !"
+
+    },
+    {
     name: "check",
     description: "shows player's data such as level, Pokedollars, etc",
     options: [

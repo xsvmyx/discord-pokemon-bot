@@ -26056,6 +26056,35 @@
     "gen": 8,
     "menu_sprite": "sprites/0888.png"
   },
+   {
+    "id": "0888",
+    "types": [
+      "Fairy",
+      "Steel"
+    ],
+    "image_local": "images-special/888-crowned-sword.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/zacian.jpg",
+    "names": {
+      "ja-Hrkt": "ザシアン",
+      "roomaji": "Zacian",
+      "ko": "자시안",
+      "zh-Hant": "蒼響",
+      "fr": "Zacian",
+      "de": "Zacian",
+      "es": "Zacian",
+      "it": "Zacian",
+      "en": "Zacian",
+      "ja": "ザシアン",
+      "zh-Hans": "苍响"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 8,
+    "menu_sprite": "sprites-special/888-crowned-sword.png"
+  },
   {
     "id": "0889",
     "types": [
@@ -26083,6 +26112,35 @@
     "is_mythical": false,
     "gen": 8,
     "menu_sprite": "sprites/0889.png"
+  },
+    {
+    "id": "0889",
+    "types": [
+      "Fighting",
+      "Steel"
+    ],
+    "image_local": "images-special/889-crowned-shield.png",
+    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/zamazenta.jpg",
+    "names": {
+      "ja-Hrkt": "ザマゼンタ",
+      "roomaji": "Zamazenta",
+      "ko": "자마젠타",
+      "zh-Hant": "藏瑪然特",
+      "fr": "Zamazenta",
+      "de": "Zamazenta",
+      "es": "Zamazenta",
+      "it": "Zamazenta",
+      "en": "Zamazenta",
+      "ja": "ザマゼンタ",
+      "zh-Hans": "藏玛然特"
+    },
+    "has_gender_differences": false,
+    "hatch_counter": 120,
+    "is_baby": false,
+    "is_legendary": true,
+    "is_mythical": false,
+    "gen": 8,
+    "menu_sprite": "sprites-special/889-crowned-shield.png"
   },
   {
     "id": "0890",
