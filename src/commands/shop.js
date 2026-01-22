@@ -9,6 +9,11 @@ const {
 const path = require("path");
 const fs = require("fs");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
+const {pay} = require("../utils/pay");;
+
+
+let isBuying = false;
+
 
 const packs = [
   {
@@ -65,9 +70,10 @@ async function shop(interaction) {
       .setColor(0xF1C40F)
       .setDescription(pack.description)
       .addFields(
-        { name: "💰 Prix", value: `${pack.price} Pokédollars`, inline: true },
-        { name: "💳 Ton solde", value: `${player.pokedollars}`, inline: true },
-        { name: "📦 Pack", value: `${index + 1} / ${packs.length}`, inline: true }
+      { name: "💰 Price", value: `${pack.price} Pokédollars`, inline: true },
+      { name: "💳 Your Balance", value: `${player.pokedollars}`, inline: true },
+      { name: "📦 Pack", value: `${index + 1} / ${packs.length}`, inline: true }
+
       );
 
     if (hasImage) {
@@ -80,17 +86,17 @@ async function shop(interaction) {
 
     return {
       embeds: [embed],
-      components: [buildShopButtons(index)],
+      components: [buildShopButtons(index,isBuying)],
       files
     };
   };
 
 
 
-  //premier affichage
+  //premier affichage reply
   const message = await interaction.reply({
     ...buildMessagePayload(),
-    ephemeral: true,
+    flags: 64, //<=> ephemeral: true,
   });
 
   const collector = message.createMessageComponentCollector({
@@ -102,44 +108,68 @@ async function shop(interaction) {
 
   //ici le collector du btn
 collector.on("collect", async (btn) => {
+
   if (btn.user.id !== interaction.user.id) {
     return btn.reply({
       content: "❌ Ce shop n'est pas le tien",
-      ephemeral: true
+      flags: 64 //<=> ephemeral: true,
     });
   }
 
+  await btn.deferUpdate(); //alors ici , on dechire le ticket du btn (ACK que le bot a recu le click)
+
+  // navigation
   if (btn.customId === "shop_prev") index--;
   if (btn.customId === "shop_next") index++;
 
+
+
+
+  //####ACHAT
+  //sans defer , on execute pay puis reply . mais dicord peut ne pas recevoir de ACK apres 3 secs et ca va crash
   if (btn.customId === "shop_buy_1") {
-    const price = packs[index].price;
 
-    if (player.pokedollars < price) {
-      return btn.reply({
-        content: "❌ Pas assez de Pokédollars",
-        ephemeral: true
-      });
-    }else{
-      return btn.reply({
-      content: "✅ Achat OK (logique à venir)",
-      ephemeral: true
+    
+
+    isBuying = true;
+    await interaction.editReply(buildMessagePayload()); // 🔒 boutons désactivés
+
+    const result = await pay(player, packs[index], 1); ////on effectue un traitement qui peut depasser 3secs
+
+    await btn.followUp({
+      content: result.message,
+      flags: 64 //<=> ephemeral: true,
     });
-    }
 
-    
-    
+    isBuying = false;
   }
 
-  index = Math.max(0, Math.min(index, packs.length - 1));
 
-  await btn.update(buildMessagePayload());
+  index = Math.max(0, Math.min(index, packs.length - 1));
+  await interaction.editReply(buildMessagePayload());
 });
+
+
+
+
+
+
+
+
 
   collector.on("end", () => {});
 }
 
-function buildShopButtons(index) {
+
+
+
+
+
+
+
+
+
+function buildShopButtons(index,isBuying) {
   return new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId("shop_prev")
@@ -151,7 +181,7 @@ function buildShopButtons(index) {
       .setCustomId("shop_buy_1")
       .setLabel("Acheter x1")
       .setStyle(ButtonStyle.Success)
-      .setDisabled(false),
+      .setDisabled(isBuying),
 
     new ButtonBuilder()
       .setCustomId("shop_buy_10")

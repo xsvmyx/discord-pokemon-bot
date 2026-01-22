@@ -1,32 +1,4 @@
-[ {
-    "id": "0001",
-    "types": [
-      "Grass",
-      "Poison"
-    ],
-    "image_local": "images/0002.png",
-    "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/bulbasaur.jpg",
-    "names": {
-      "ja-Hrkt": "フシギダネ",
-      "roomaji": "Fushigidane",
-      "ko": "이상해씨",
-      "zh-Hant": "妙蛙種子",
-      "fr": "Bulbizarre",
-      "de": "Bisasam",
-      "es": "Bulbasaur",
-      "it": "Bulbasaur",
-      "en": "Bulbasaur",
-      "ja": "フシギダネ",
-      "zh-Hans": "妙蛙种子"
-    },
-    "has_gender_differences": false,
-    "hatch_counter": 20,
-    "is_baby": false,
-    "is_legendary": false,
-    "is_mythical": false,
-    "gen": 1,
-    "menu_sprite": "sprites/0002.png"
-  },
+[ 
   {
     "id": "0001",
     "types": [
@@ -832,17 +804,18 @@
     "image_local": "images/0029.png",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/nidoran-f.jpg",
     "names": {
-      "ja-Hrkt": "ニドラン♀",
-      "roomaji": "Nidoran♀",
-      "ko": "니드런♀",
+      "ja-Hrkt": "ニドラン",
+      "roomaji": "Nidoran",
+      "ko": "니드런",
       "zh-Hant": "尼多蘭",
-      "fr": "Nidoran♀",
-      "de": "Nidoran♀",
-      "es": "Nidoran♀",
-      "it": "Nidoran♀",
-      "en": "Nidoran♀",
-      "ja": "ニドラン♀",
-      "zh-Hans": "尼多兰"
+      "fr": "Nidoran",
+      "de": "Nidoran",
+      "es": "Nidoran",
+      "it": "Nidoran",
+      "en": "Nidoran",
+      "ja": "ニドラン",
+      "zh-Hans": "尼多兰",
+      "spe": "Nidoran f"
     },
     "has_gender_differences": false,
     "hatch_counter": 20,
@@ -917,17 +890,18 @@
     "image_local": "images/0032.png",
     "image_url": "https://img.pokemondb.net/sprites/home/normal/2x/nidoran-m.jpg",
     "names": {
-      "ja-Hrkt": "ニドラン♂",
-      "roomaji": "Nidoran♂",
+      "ja-Hrkt": "ニドラン",
+      "roomaji": "Nidoran",
       "ko": "니드런♂",
       "zh-Hant": "尼多朗",
-      "fr": "Nidoran♂",
-      "de": "Nidoran♂",
-      "es": "Nidoran♂",
-      "it": "Nidoran♂",
-      "en": "Nidoran♂",
-      "ja": "ニドラン♂",
-      "zh-Hans": "尼多朗"
+      "fr": "Nidoran",
+      "de": "Nidoran",
+      "es": "Nidoran",
+      "it": "Nidoran",
+      "en": "Nidoran",
+      "ja": "ニドラン",
+      "zh-Hans": "尼多朗",
+      "spe": "Nidoran m"
     },
     "has_gender_differences": false,
     "hatch_counter": 20,
@@ -2381,7 +2355,8 @@
       "it": "Farfetch’d",
       "en": "Farfetch’d",
       "ja": "カモネギ",
-      "zh-Hans": "大葱鸭"
+      "zh-Hans": "大葱鸭",
+      "spe":"farfetchd"
     },
     "has_gender_differences": false,
     "hatch_counter": 20,
@@ -3484,10 +3459,11 @@
       "fr": "M. Mime",
       "de": "Pantimos",
       "es": "Mr. Mime",
-      "it": "Mr. Mime",
+      "it": "Mr.Mime",
       "en": "Mr. Mime",
       "ja": "バリヤード",
-      "zh-Hans": "魔墙人偶"
+      "zh-Hans": "魔墙人偶",
+      "spe":"mr mime"
     },
     "has_gender_differences": false,
     "hatch_counter": 25,
@@ -7132,7 +7108,8 @@
       "it": "Ho-Oh",
       "en": "Ho-Oh",
       "ja": "ホウオウ",
-      "zh-Hans": "凤王"
+      "zh-Hans": "凤王",
+      "spe":"ho oh"
     },
     "has_gender_differences": false,
     "hatch_counter": 120,
@@ -12185,7 +12162,8 @@
       "en": "Gastrodon",
       "ja": "トリトドン",
       "zh-Hans": "海兔兽",
-      "spe":"Gastrodon west sea"
+      "spe2":"Gastrodon west sea",
+      "spe":"gastrodon west"
     },
     "has_gender_differences": false,
     "hatch_counter": 20,
@@ -12215,7 +12193,8 @@
       "en": "Gastrodon",
       "ja": "トリトドン",
       "zh-Hans": "海兔兽",
-      "spe":"Gastrodon east sea"
+      "spe2":"Gastrodon east sea",
+      "spe":"gastrodon east"
     },
     "has_gender_differences": false,
     "hatch_counter": 20,
@@ -19643,7 +19622,8 @@
       "it": "Flabébé",
       "en": "Flabébé",
       "ja": "フラベベ",
-      "zh-Hans": "花蓓蓓"
+      "zh-Hans": "花蓓蓓",
+      "spe":"flabebe"
     },
     "has_gender_differences": false,
     "hatch_counter": 20,
@@ -22739,7 +22719,8 @@
       "it": "Tipo Zero",
       "en": "Type: Null",
       "ja": "タイプ：ヌル",
-      "zh-Hans": "属性：空"
+      "zh-Hans": "属性：空",
+      "spe":"Type Null"
     },
     "has_gender_differences": false,
     "hatch_counter": 120,
@@ -23055,7 +23036,8 @@
       "it": "Hakamo-o",
       "en": "Hakamo-o",
       "ja": "ジャランゴ",
-      "zh-Hans": "鳞甲龙"
+      "zh-Hans": "鳞甲龙",
+      "spe":"hakamo o"
     },
     "has_gender_differences": false,
     "hatch_counter": 40,
@@ -23113,7 +23095,8 @@
       "it": "Tapu Koko",
       "en": "Tapu Koko",
       "ja": "カプ・コケコ",
-      "zh-Hans": "卡璞・鸣鸣"
+      "zh-Hans": "卡璞・鸣鸣",
+      "spe":"tapukoko"
     },
     "has_gender_differences": false,
     "hatch_counter": 15,
@@ -23142,7 +23125,8 @@
       "it": "Tapu Lele",
       "en": "Tapu Lele",
       "ja": "カプ・テテフ",
-      "zh-Hans": "卡璞・蝶蝶"
+      "zh-Hans": "卡璞・蝶蝶",
+      "spe":"tapulele"
     },
     "has_gender_differences": false,
     "hatch_counter": 15,
@@ -23171,7 +23155,8 @@
       "it": "Tapu Bulu",
       "en": "Tapu Bulu",
       "ja": "カプ・ブルル",
-      "zh-Hans": "卡璞・哞哞"
+      "zh-Hans": "卡璞・哞哞",
+      "spe":"tapibulu"
     },
     "has_gender_differences": false,
     "hatch_counter": 15,
@@ -23200,7 +23185,8 @@
       "it": "Tapu Fini",
       "en": "Tapu Fini",
       "ja": "カプ・レヒレ",
-      "zh-Hans": "卡璞・鳍鳍"
+      "zh-Hans": "卡璞・鳍鳍",
+      "spe":"tapufini"
     },
     "has_gender_differences": false,
     "hatch_counter": 15,
