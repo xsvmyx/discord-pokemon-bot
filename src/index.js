@@ -10,6 +10,7 @@ const {help} = require("./commands/help");
 const {daily} = require("./commands/daily");
 const {check} = require("./commands/check");
 const {shop} = require("./commands/shop");
+const {myPokemons} = require("./commands/my-pokemons");
 
 
 const client = new Client({
@@ -84,7 +85,10 @@ client.on('interactionCreate', async (interaction) => {
             break;
         case 'shop':
             await shop(interaction);
-            break;   
+            break; 
+        case 'my-pokemons':
+            await myPokemons(interaction);
+            break;  
 
         default:
             console.log(`Unknown command: ${interaction.commandName}`);
@@ -110,6 +114,10 @@ client.on('interactionCreate', async (interaction) => {
 
 
 client.login(process.env.TOKEN)
+
+
+
+
 
 
 

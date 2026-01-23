@@ -5,7 +5,7 @@ const {
   ButtonStyle,
   AttachmentBuilder
 } = require("discord.js");
-
+const getRandomGif = require("../utils/getRandomGif");
 const path = require("path");
 const fs = require("fs");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
@@ -129,18 +129,41 @@ collector.on("collect", async (btn) => {
   //sans defer , on execute pay puis reply . mais dicord peut ne pas recevoir de ACK apres 3 secs et ca va crash
   if (btn.customId === "shop_buy_1") {
 
-    
-
     isBuying = true;
     await interaction.editReply(buildMessagePayload()); // 🔒 boutons désactivés
 
-    const result = await pay(player, packs[index], 1); ////on effectue un traitement qui peut depasser 3secs
+    try {
+      const result = await pay(player, packs[index], 1);
 
-    await btn.followUp({
-      content: result.message,
-      flags: 64 //<=> ephemeral: true,
-    });
+      if (!result.ok) {
+        await btn.followUp({
+          content: result.message,
+          flags: 64
+        });
+        return;
+      }
 
+      const gif = getRandomGif();
+
+      player.ownedGifs.push(gif);
+      await player.save();
+
+      await btn.followUp({
+        content: `${result.message}\n🎁 You received: **${gif}**`,
+        flags: 64
+      });
+
+      
+    } catch (err) {
+      console.error("[SHOP BUY ERROR]", err);
+
+      await btn.followUp({
+        content: "❌ An unexpected error occurred. The transaction has been cancelled.",
+        flags: 64
+      });
+
+    }
+    
     isBuying = false;
   }
 

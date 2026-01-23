@@ -5,8 +5,21 @@ require('dotenv').config();
 
 const commands = [
     {
+    name: "my-pokemons",
+    description: "Show your Pokémon collection or a specific Pokémon",
+    options: [
+        {
+            name: "pokemon",
+            description: "Name of the Pokémon to display",
+            type: ApplicationCommandOptionType.String,
+            required: false
+        }
+    ]
+},
+
+    {
         name:"shop",
-        description: "access to the Pokebot shop to buy some boosters !"
+        description: "access to the Pokebot shop to buy some animated Pokémons!"
 
     },
     {
