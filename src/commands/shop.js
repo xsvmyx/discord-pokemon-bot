@@ -10,34 +10,10 @@ const path = require("path");
 const fs = require("fs");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const {pay} = require("../utils/pay");;
-
+const packs = require("../data/packs.js");
 
 let isBuying = false;
 
-
-const packs = [
-  {
-    id: "basic",
-    name: "🎁 Pack Basique",
-    price: 200,
-    description: "1 GIF Pokémon\nProbabilité normale",
-    image: "legendss.jpg"
-  },
-  {
-    id: "rare",
-    name: "💎 Pack Rare",
-    price: 500,
-    description: "3 GIFs Pokémon\nChance shiny augmentée",
-    image: "mythical.jpg"
-  },
-  {
-    id: "legend",
-    name: "🔥 Pack Légendaire",
-    price: 12000,
-    description: "5 GIFs Pokémon\nChance légendaire",
-    image: "mega.jpg"
-  }
-];
 
 async function shop(interaction) {
   const player = await getOrCreatePlayer(
@@ -143,7 +119,7 @@ collector.on("collect", async (btn) => {
         return;
       }
 
-      const gif = getRandomGif();
+      const gif = getRandomGif(packs[index]);
 
       player.ownedGifs.push(gif);
       await player.save();

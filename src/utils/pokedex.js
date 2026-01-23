@@ -3,8 +3,9 @@ const fs = require("fs");
 const path = require("path");
 
 const POKEDEX_PATH = path.join(
-  process.cwd(), 
-  "pokemon",
+  process.cwd(),
+  "src",
+  "data",
   "pokedex.json"
 );
 

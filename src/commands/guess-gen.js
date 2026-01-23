@@ -6,7 +6,7 @@ const {
     AttachmentBuilder
 } = require("discord.js");
 
-const generationRanges = require("../utils/generationRanges.js");
+const generationRanges = require("../data/generationRanges.js");
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");

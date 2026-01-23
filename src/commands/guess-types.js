@@ -9,7 +9,7 @@ const {
 
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require("../utils/addPoints");
-const { ALL_TYPES } = require("../utils/allTypes");
+const { ALL_TYPES } = require("../data/allTypes.js");
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
 const pokedexData  = require("../utils/pokedex.js");
 

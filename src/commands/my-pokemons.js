@@ -27,9 +27,7 @@ async function myPokemons(interaction) {
     if (pokemonName) {
 
     // lire le fichier JSON
-    const gifsData = JSON.parse(
-        fs.readFileSync("./pokemon/gifs.json", "utf8")
-    );
+    const gifsData = require("../utils/gifs");
 
     const searchedName = pokemonName.toLowerCase();
 

@@ -2,7 +2,7 @@
 const { AttachmentBuilder, EmbedBuilder } = require('discord.js');
 const getOrCreatePlayer = require("../utils/getOrCreatePlayer");
 const { addPoints } = require('../utils/addPoints');
-const generationRanges = require('../utils/generationRanges');
+const generationRanges = require('../data/generationRanges.js');
 const { lockChannel, unlockChannel, isLocked } = require("../utils/gameLock");
 const  pokedex  = require('../utils/pokedex.js');
 
