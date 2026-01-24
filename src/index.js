@@ -1,8 +1,14 @@
 const {Client , IntentsBitField } = require('discord.js');
-//require('dotenv').config();
 const mongoose = require('mongoose');
 const { Events } = require('discord.js');
+const http = require("http");
+const https = require("https");
 
+// 🔧 CRITICAL: Force keepAlive pour Render
+http.globalAgent.keepAlive = true;
+https.globalAgent.keepAlive = true;
+https.globalAgent.keepAliveMsecs = 30000;
+https.globalAgent.maxSockets = 50;
 
 const { guess } = require('./commands/guess-name');
 const {setLang} = require('./commands/lang')
@@ -21,56 +27,45 @@ const client = new Client({
         IntentsBitField.Flags.GuildMessages,
         IntentsBitField.Flags.GuildMessageReactions,
         IntentsBitField.Flags.MessageContent,
-        
         IntentsBitField.Flags.GuildMembers,
         IntentsBitField.Flags.GuildMessageTyping,
         IntentsBitField.Flags.GuildPresences,
-
-    ]
-
-})
-
-
-
-
-
-
+    ],
+    ws: {
+        large_threshold: 50,
+        compress: true,
+    },
+    rest: {
+        timeout: 60000,
+        retries: 5
+    }
+});
 
 
 client.once(Events.ClientReady, (c) => {
     console.log(`############# ${c.user.tag} is online`);
-})         
+});
 
 client.on("messageCreate", msg => {
-  if(msg.author.bot) return;
-
-  //console.log(msg.content);
+    if(msg.author.bot) return;
     
     if(msg.content === "shbob")
         msg.react("😀");
-        
-
-   
 });
-
-
 
 
 client.on('interactionCreate', async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
     switch (interaction.commandName) {
-
         case 'guess-name':
             await guess(interaction);
             break;
-
         case 'lang':
             await setLang(interaction);
             break;
         case 'guess-gen':
             await guess_gen(interaction);
-            //interaction.reply('awwwwww');
             break;
         case 'guess-types':
             await guess_types(interaction);
@@ -90,17 +85,19 @@ client.on('interactionCreate', async (interaction) => {
         case 'my-pokemons':
             await myPokemons(interaction);
             break;  
-
         default:
             console.log(`Unknown command: ${interaction.commandName}`);
     }
 });
 
 
+// Event listeners pour debug
+client.on('debug', info => {
+    if (info.includes('gateway') || info.includes('heartbeat') || info.includes('Identify')) {
+        console.log('🔍 DEBUG:', info);
+    }
+});
 
-
-// Ajoute ces listeners AVANT le login
-client.on('debug', console.log);
 client.on('warn', console.warn);
 client.on('error', console.error);
 
@@ -116,6 +113,7 @@ client.on('shardReconnecting', id => {
     console.log('🔄 Shard reconnecting:', id);
 });
 
+
 (async () => {
     try {
         console.log("🔍 TOKEN présent?", !!process.env.TOKEN);
@@ -129,41 +127,31 @@ client.on('shardReconnecting', id => {
         
         const loginPromise = client.login(process.env.TOKEN);
         
-        // Timeout de 30 secondes
+        // Timeout de 90 secondes (plus long pour Render)
         const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('⏱️ Timeout: Discord ne répond pas après 30s')), 30000);
+            setTimeout(() => reject(new Error('⏱️ Timeout: Discord ne répond pas après 90s')), 90000);
         });
         
         await Promise.race([loginPromise, timeoutPromise]);
         console.log("✅ Discord Login OK");
         
     } catch (e) {
-        console.error("❌ ERREUR:", e);
+        console.error("❌ ERREUR:", e.message);
         console.error("❌ Stack:", e.stack);
         process.exit(1);
     }
 })();
 
 
-
-
-
-
-
 // 🔧 Render keep-alive 
-const http = require("http");
-
-
 const server = http.createServer((req, res) => {
-  // mini activité non persistante
-  const work = Math.sqrt(Math.random() * Date.now());
-
-  console.log(`[PING] work=${work}`);
-
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Bot is running");
+    const work = Math.sqrt(Math.random() * Date.now());
+    console.log(`[PING] work=${work}`);
+    
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Bot is running");
 });
 
 server.listen(process.env.PORT || 3000, () => {
-  console.log("🌐 Dummy HTTP server running");
+    console.log("🌐 Dummy HTTP server running on port", process.env.PORT || 3000);
 });
