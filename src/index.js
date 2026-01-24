@@ -1,6 +1,8 @@
 const {Client , IntentsBitField } = require('discord.js');
 require('dotenv').config();
 const mongoose = require('mongoose');
+const { Events } = require('discord.js');
+
 
 const { guess } = require('./commands/guess-name');
 const {setLang} = require('./commands/lang')
@@ -34,11 +36,10 @@ const client = new Client({
 
 
 
-client.on('clientReady', (c) => {
-    console.log(`############# ${c.user.tag} is online`);
 
-});
-                
+client.once(Events.ClientReady, (c) => {
+    console.log(`############# ${c.user.tag} is online`);
+})         
 
 client.on("messageCreate", msg => {
   if(msg.author.bot) return;
