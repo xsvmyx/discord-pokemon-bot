@@ -107,8 +107,11 @@ client.on('interactionCreate', async (interaction) => {
         );
         console.log("DB OKKK");
         
+        client.login(process.env.TOKEN)
+            .then(() => console.log("Login OK"))
+             .catch(err => console.error("Login FAILED:", err));
 
-        console.log("TOKEN =", process.env.TOKEN);
+        
 
         
     } catch (e) {
@@ -117,9 +120,6 @@ client.on('interactionCreate', async (interaction) => {
 })(); 
 
 
-client.login(process.env.TOKEN)
-  .then(() => console.log("Login OK"))
-  .catch(err => console.error("Login FAILED:", err));
 
 
 
