@@ -15,21 +15,28 @@ const {shop} = require("./commands/shop");
 const {myPokemons} = require("./commands/my-pokemons");
 
 
-const client = new Client({
-    intents: [
-        IntentsBitField.Flags.Guilds,
-        IntentsBitField.Flags.GuildMessages,
-        IntentsBitField.Flags.GuildMessageReactions,
-        IntentsBitField.Flags.MessageContent,
+// const client = new Client({
+//     intents: [
+//         IntentsBitField.Flags.Guilds,
+//         IntentsBitField.Flags.GuildMessages,
+//         IntentsBitField.Flags.GuildMessageReactions,
+//         IntentsBitField.Flags.MessageContent,
         
-        IntentsBitField.Flags.GuildMembers,
-        IntentsBitField.Flags.GuildMessageTyping,
-        IntentsBitField.Flags.GuildPresences,
+//         IntentsBitField.Flags.GuildMembers,
+//         IntentsBitField.Flags.GuildMessageTyping,
+//         IntentsBitField.Flags.GuildPresences,
 
-    ]
+//     ]
 
-})
+// })
 
+const client = new Client({
+  intents: [
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMessages,
+    IntentsBitField.Flags.MessageContent
+  ]
+});
 
 
 
