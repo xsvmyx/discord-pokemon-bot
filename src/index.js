@@ -99,6 +99,23 @@ client.on('interactionCreate', async (interaction) => {
 
 
 
+// Ajoute ces listeners AVANT le login
+client.on('debug', console.log);
+client.on('warn', console.warn);
+client.on('error', console.error);
+
+client.on('shardError', error => {
+    console.error('❌ Shard error:', error);
+});
+
+client.on('shardDisconnect', (event, id) => {
+    console.log('🔌 Shard disconnected:', id, event);
+});
+
+client.on('shardReconnecting', id => {
+    console.log('🔄 Shard reconnecting:', id);
+});
+
 (async () => {
     try {
         console.log("🔍 TOKEN présent?", !!process.env.TOKEN);
@@ -108,17 +125,24 @@ client.on('interactionCreate', async (interaction) => {
         await mongoose.connect(process.env.DB_URI);
         console.log("✅ DB OK");
         
-        await client.login(process.env.TOKEN);
+        console.log("🔄 Tentative de connexion Discord...");
+        
+        const loginPromise = client.login(process.env.TOKEN);
+        
+        // Timeout de 30 secondes
+        const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('⏱️ Timeout: Discord ne répond pas après 30s')), 30000);
+        });
+        
+        await Promise.race([loginPromise, timeoutPromise]);
         console.log("✅ Discord Login OK");
         
     } catch (e) {
         console.error("❌ ERREUR:", e);
+        console.error("❌ Stack:", e.stack);
         process.exit(1);
     }
 })();
-
-
-
 
 
 
