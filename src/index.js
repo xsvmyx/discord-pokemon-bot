@@ -91,15 +91,26 @@ client.on('interactionCreate', async (interaction) => {
 });
 
 
-// Event listeners pour debug
+// Event listeners - TOUS les logs activés
 client.on('debug', info => {
-    if (info.includes('gateway') || info.includes('heartbeat') || info.includes('Identify')) {
-        console.log('🔍 DEBUG:', info);
-    }
+    console.log('🔍 DEBUG:', info);
 });
 
-client.on('warn', console.warn);
-client.on('error', console.error);
+client.on('warn', warning => {
+    console.log('⚠️ WARN:', warning);
+});
+
+client.on('error', error => {
+    console.error('❌ ERROR:', error);
+});
+
+client.on('ready', () => {
+    console.log('✅✅✅ CLIENT READY EVENT FIRED ✅✅✅');
+});
+
+client.on('invalidated', () => {
+    console.log('❌ Session invalidated - will retry');
+});
 
 client.on('shardError', error => {
     console.error('❌ Shard error:', error);
@@ -113,6 +124,14 @@ client.on('shardReconnecting', id => {
     console.log('🔄 Shard reconnecting:', id);
 });
 
+client.on('shardReady', (id) => {
+    console.log(`✅ Shard ${id} ready`);
+});
+
+client.on('shardResume', (id, replayedEvents) => {
+    console.log(`🔄 Shard ${id} resumed, replayed ${replayedEvents} events`);
+});
+
 
 (async () => {
     try {
@@ -123,22 +142,27 @@ client.on('shardReconnecting', id => {
         await mongoose.connect(process.env.DB_URI);
         console.log("✅ DB OK");
         
-        console.log("🔄 Tentative de connexion Discord...");
+        console.log("🔄 Connexion Discord (sans timeout - laisse Discord.js gérer)...");
         
-        const loginPromise = client.login(process.env.TOKEN);
-        
-        // Timeout de 90 secondes (plus long pour Render)
-        const timeoutPromise = new Promise((_, reject) => {
-            setTimeout(() => reject(new Error('⏱️ Timeout: Discord ne répond pas après 90s')), 90000);
-        });
-        
-        await Promise.race([loginPromise, timeoutPromise]);
-        console.log("✅ Discord Login OK");
+        // PLUS DE TIMEOUT - Discord.js gère ses propres retries
+        client.login(process.env.TOKEN)
+            .then(() => console.log("✅✅✅ LOGIN PROMISE RESOLVED ✅✅✅"))
+            .catch(err => {
+                console.error("❌ Login failed:", err);
+                console.error("❌ Error code:", err.code);
+                console.error("❌ Error message:", err.message);
+                
+                // Retry après 15 secondes
+                console.log("🔄 Will retry in 15 seconds...");
+                setTimeout(() => {
+                    console.log("🔄 Retrying login...");
+                    client.login(process.env.TOKEN);
+                }, 15000);
+            });
         
     } catch (e) {
-        console.error("❌ ERREUR:", e.message);
+        console.error("❌ ERREUR SETUP:", e);
         console.error("❌ Stack:", e.stack);
-        process.exit(1);
     }
 })();
 
