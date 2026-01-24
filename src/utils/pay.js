@@ -1,6 +1,6 @@
 async function pay(player, pack, quantity = 1) {
-  // const total = pack.price * quantity;
-  const total = 1;
+  const total = pack.price * quantity;
+  //const total = 1;
 
   const before = player.pokedollars;
 

@@ -105,7 +105,10 @@ client.on('interactionCreate', async (interaction) => {
             process.env.DB_URI
             
         );
-        console.log("OKKK");
+        console.log("DB OKKK");
+        
+
+        console.log("TOKEN =", process.env.TOKEN);
 
         
     } catch (e) {
