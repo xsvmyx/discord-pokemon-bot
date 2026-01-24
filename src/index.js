@@ -115,6 +115,9 @@ client.on('interactionCreate', async (interaction) => {
 
 
 client.login(process.env.TOKEN)
+  .then(() => console.log("Login OK"))
+  .catch(err => console.error("Login FAILED:", err));
+
 
 
 
