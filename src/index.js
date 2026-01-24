@@ -1,5 +1,5 @@
 const {Client , IntentsBitField } = require('discord.js');
-require('dotenv').config();
+//require('dotenv').config();
 const mongoose = require('mongoose');
 const { Events } = require('discord.js');
 
@@ -15,28 +15,21 @@ const {shop} = require("./commands/shop");
 const {myPokemons} = require("./commands/my-pokemons");
 
 
-// const client = new Client({
-//     intents: [
-//         IntentsBitField.Flags.Guilds,
-//         IntentsBitField.Flags.GuildMessages,
-//         IntentsBitField.Flags.GuildMessageReactions,
-//         IntentsBitField.Flags.MessageContent,
-        
-//         IntentsBitField.Flags.GuildMembers,
-//         IntentsBitField.Flags.GuildMessageTyping,
-//         IntentsBitField.Flags.GuildPresences,
-
-//     ]
-
-// })
-
 const client = new Client({
-  intents: [
-    IntentsBitField.Flags.Guilds,
-    IntentsBitField.Flags.GuildMessages,
-    IntentsBitField.Flags.MessageContent
-  ]
-});
+    intents: [
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildMessageReactions,
+        IntentsBitField.Flags.MessageContent,
+        
+        IntentsBitField.Flags.GuildMembers,
+        IntentsBitField.Flags.GuildMessageTyping,
+        IntentsBitField.Flags.GuildPresences,
+
+    ]
+
+})
+
 
 
 
@@ -108,23 +101,21 @@ client.on('interactionCreate', async (interaction) => {
 
 (async () => {
     try {
-        await mongoose.connect(
-            process.env.DB_URI
-            
-        );
-        console.log("DB OKKK");
+        console.log("🔍 TOKEN présent?", !!process.env.TOKEN);
+        console.log("🔍 TOKEN length:", process.env.TOKEN?.length);
+        console.log("🔍 DB_URI présent?", !!process.env.DB_URI);
         
-        client.login(process.env.TOKEN)
-            .then(() => console.log("Login OK"))
-             .catch(err => console.error("Login FAILED:", err));
-
+        await mongoose.connect(process.env.DB_URI);
+        console.log("✅ DB OK");
         
-
+        await client.login(process.env.TOKEN);
+        console.log("✅ Discord Login OK");
         
     } catch (e) {
-        console.log("ERRRRR:", e);
+        console.error("❌ ERREUR:", e);
+        process.exit(1);
     }
-})(); 
+})();
 
 
 
