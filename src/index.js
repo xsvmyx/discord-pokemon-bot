@@ -42,7 +42,7 @@ const client = new Client({
 });
 
 
-client.once(Events.ClientReady, (c) => {
+client.on('clientReady', (c) => {
     console.log(`############# ${c.user.tag} is online`);
 });
 
@@ -91,9 +91,18 @@ client.on('interactionCreate', async (interaction) => {
 });
 
 
-// Event listeners - TOUS les logs activés
+
+
+
+
+// 
 client.on('debug', info => {
-    console.log('🔍 DEBUG:', info);
+    // Logs seulement les événements critiques
+    if (info.includes('Identifying') || 
+        info.includes('Reconnect') ||
+        info.includes('Resume')) {
+        console.log('🔍', info);
+    }
 });
 
 client.on('warn', warning => {
@@ -102,10 +111,6 @@ client.on('warn', warning => {
 
 client.on('error', error => {
     console.error('❌ ERROR:', error);
-});
-
-client.on('ready', () => {
-    console.log('✅✅✅ CLIENT READY EVENT FIRED ✅✅✅');
 });
 
 client.on('invalidated', () => {
@@ -117,7 +122,7 @@ client.on('shardError', error => {
 });
 
 client.on('shardDisconnect', (event, id) => {
-    console.log('🔌 Shard disconnected:', id, event);
+    console.log('🔌 Shard disconnected:', id);
 });
 
 client.on('shardReconnecting', id => {
@@ -129,53 +134,36 @@ client.on('shardReady', (id) => {
 });
 
 client.on('shardResume', (id, replayedEvents) => {
-    console.log(`🔄 Shard ${id} resumed, replayed ${replayedEvents} events`);
+    console.log(`🔄 Shard ${id} resumed`);
 });
 
 
 (async () => {
     try {
-        console.log("🔍 TOKEN présent?", !!process.env.TOKEN);
-        console.log("🔍 TOKEN length:", process.env.TOKEN?.length);
-        console.log("🔍 DB_URI présent?", !!process.env.DB_URI);
-        
         await mongoose.connect(process.env.DB_URI);
-        console.log("✅ DB OK");
+        console.log("✅ DB connected");
         
-        console.log("🔄 Connexion Discord (sans timeout - laisse Discord.js gérer)...");
-        
-        // PLUS DE TIMEOUT - Discord.js gère ses propres retries
-        client.login(process.env.TOKEN)
-            .then(() => console.log("✅✅✅ LOGIN PROMISE RESOLVED ✅✅✅"))
-            .catch(err => {
-                console.error("❌ Login failed:", err);
-                console.error("❌ Error code:", err.code);
-                console.error("❌ Error message:", err.message);
-                
-                // Retry après 15 secondes
-                console.log("🔄 Will retry in 15 seconds...");
-                setTimeout(() => {
-                    console.log("🔄 Retrying login...");
-                    client.login(process.env.TOKEN);
-                }, 15000);
-            });
+        await client.login(process.env.TOKEN);
+        console.log("✅ Discord login successful");
         
     } catch (e) {
-        console.error("❌ ERREUR SETUP:", e);
-        console.error("❌ Stack:", e.stack);
+        console.error("❌ Startup error:", e.message);
+        
+        // Retry après 15 secondes
+        setTimeout(() => {
+            console.log("🔄 Retrying...");
+            client.login(process.env.TOKEN);
+        }, 15000);
     }
 })();
 
 
 // 🔧 Render keep-alive 
 const server = http.createServer((req, res) => {
-    const work = Math.sqrt(Math.random() * Date.now());
-    console.log(`[PING] work=${work}`);
-    
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end("Bot is running");
 });
 
 server.listen(process.env.PORT || 3000, () => {
-    console.log("🌐 Dummy HTTP server running on port", process.env.PORT || 3000);
+    console.log("🌐 HTTP server running on port", process.env.PORT || 3000);
 });
