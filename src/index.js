@@ -27,9 +27,6 @@ const client = new Client({
         IntentsBitField.Flags.GuildMessages,
         IntentsBitField.Flags.GuildMessageReactions,
         IntentsBitField.Flags.MessageContent,
-        IntentsBitField.Flags.GuildMembers,
-        IntentsBitField.Flags.GuildMessageTyping,
-        IntentsBitField.Flags.GuildPresences,
     ],
     ws: {
         large_threshold: 50,
