@@ -26,6 +26,7 @@ async function guess_types(interaction) {
 
     lockChannel(channelId);
 
+    try {
     
     
     const min = 1;
@@ -37,7 +38,7 @@ async function guess_types(interaction) {
     
     const pokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
 
-    pixelMode = interaction.options.getBoolean("pixel") ?? false;
+    let pixelMode = interaction.options.getBoolean("pixel") ?? false;
     const imageRelativePath = pixelMode
     ? pokemon.menu_sprite
     : pokemon.image_local;
@@ -99,82 +100,91 @@ async function guess_types(interaction) {
         time: 20000
     });
 
-    collector.on("collect", async i => {
+   collector.on("collect", async i => {
 
-        // 🚫 Déjà tenté
-        if (attemptedUsers.has(i.user.id)) {
-            await i.reply({
-                content: "❌ You already used your attempt!",
-                ephemeral: true
-            });
-            return;
-        }
+    
+    if (winner) return;
 
-        // 🎛 Sélecteurs
-        if (i.isStringSelectMenu()) {
-            const userId = i.user.id;
+    
+    if (attemptedUsers.has(i.user.id)) {
+        return i.reply({
+            content: "❌ You already used your attempt!",
+            ephemeral: true
+        });
+    }
 
-            if (!selections.has(userId)) {
-                selections.set(userId, {
-                    type_1: "None",
-                    type_2: "None"
-                });
-            }
+    
+    if (i.isStringSelectMenu()) {
+        const userId = i.user.id;
 
-            selections.get(userId)[i.customId] = i.values[0];
-            await i.deferUpdate();
-            return;
-        }
-
-        // ✅ Validation
-        if (i.isButton() && i.customId === "validate_types") {
-            await i.deferUpdate();
-
-            attemptedUsers.add(i.user.id);
-
-            const userChoices = selections.get(i.user.id) ?? {
+        if (!selections.has(userId)) {
+            selections.set(userId, {
                 type_1: "None",
                 type_2: "None"
-            };
+            });
+        }
 
-            const chosenTypes = Object.values(userChoices)
-                .filter(t => t !== "None")
-                .sort();
+        selections.get(userId)[i.customId] = i.values[0];
+        await i.deferUpdate();
+        return;
+    }
 
-            const pokemonTypes = [...pokemon.types].sort();
+    // ✅ Validation
+    if (i.isButton() && i.customId === "validate_types") {
 
-            const isCorrect =
-                chosenTypes.length === pokemonTypes.length &&
-                chosenTypes.every((t, idx) => t === pokemonTypes[idx]);
+        attemptedUsers.add(i.user.id);
 
+        const userChoices = selections.get(i.user.id) ?? {
+            type_1: "None",
+            type_2: "None"
+        };
+
+        const chosenTypes = Object.values(userChoices)
+            .filter(t => t !== "None")
+            .sort();
+
+        const pokemonTypes = [...pokemon.types].sort();
+
+        const isCorrect =
+            chosenTypes.length === pokemonTypes.length &&
+            chosenTypes.every((t, idx) => t === pokemonTypes[idx]);
+
+        
+        if (!isCorrect) {
+            await i.deferUpdate();
+            return i.followUp({
+                content: `❌ **Wrong answer, ${i.user.username}!**`,
+                ephemeral: true
+            });
+        }
+
+        
+        winner = i.user;
+        collector.stop("correct");
+
+        await i.deferUpdate();
+
+        try {
             const player = await getOrCreatePlayer(
                 i.user,
                 interaction.guildId
             );
 
-            if (isCorrect) {
-                winner = i.user;
+            await addPoints(player, interaction.channel, pt);
 
-                await addPoints(player, interaction.channel, pt);
-
-                // 🔒 Désactive tous les composants
-                await interaction.editReply({
-                    components: []
-                });
-
-                collector.stop("correct");
-                return;
-            } else {
-                await i.followUp({
-                    content: `❌ **Wrong answer, ${i.user.username}!**`,
-                    ephemeral: true
-                });
-            }
+            //désactive tous les composants
+            await interaction.editReply({
+                components: []
+            });
+        } catch (err) {
+            console.error(err);
         }
-    });
+    }
+});
+
 
     collector.on("end", async (_, reason) => {
-        unlockChannel(channelId);
+        
 
         const player = await getOrCreatePlayer(
             interaction.user,
@@ -204,6 +214,19 @@ async function guess_types(interaction) {
         }
         
     });
+
+
+} catch (err) {
+        console.error("GUESS_GEN ERROR:", err);
+
+        if (!interaction.replied) {
+            await interaction.reply("❌ Une erreur est survenue.");
+        }
+
+    } finally {
+        unlockChannel(channelId);
+    }
+
 }
 
 module.exports = { guess_types };

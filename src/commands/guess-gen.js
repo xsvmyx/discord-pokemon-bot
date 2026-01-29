@@ -28,6 +28,8 @@ async function guess_gen(interaction) {
 
     lockChannel(channelId);
 
+    try{
+        
     const pokedexData = pokedex;
 
     const attemptedUsers = new Set();
@@ -43,11 +45,11 @@ async function guess_gen(interaction) {
     const pokemon = pokemons[Math.floor(Math.random() * pokemons.length)];
 
     if (!pokemon) {
-        unlockChannel(channelId);
+        
         return interaction.reply("Pokémon non trouvé 😢");
     }
 
-    pixelMode = interaction.options.getBoolean("pixel") ?? false;
+    let pixelMode = interaction.options.getBoolean("pixel") ?? false;
     const imageRelativePath = pixelMode
     ? pokemon.menu_sprite
     : pokemon.image_local;
@@ -93,7 +95,12 @@ async function guess_gen(interaction) {
         time: 15000
     });
 
+
+    let winnerFound = false;
+
     collector.on("collect", async (btn) => {
+        if (winnerFound) return;
+
         // ⛔ already tried
         if (attemptedUsers.has(btn.user.id)) {
             return btn.reply({
@@ -103,7 +110,6 @@ async function guess_gen(interaction) {
         }
 
         attemptedUsers.add(btn.user.id);
-        await btn.deferUpdate();
 
         const chosenGen = Number(btn.customId.replace("gen", ""));
         const range = generationRanges[chosenGen];
@@ -112,34 +118,47 @@ async function guess_gen(interaction) {
             randomIdNum >= range.start &&
             randomIdNum <= range.end;
 
-        const player = await getOrCreatePlayer(
-            btn.user,
-            interaction.guildId
-        );
-
-        const lang = player.language ?? "en";
-        const name =
-            pokemon.names[lang] ??
-            pokemon.names["en"];
-        const types = pokemon.types.join(" / ");
         
-        if (isCorrect) {
-            collector.stop("win");
-
-            await interaction.followUp(
-                `✅ **${btn.user.username}** answered correctly!\nIt was **${name}**\nGen: **${chosenGen}**\nType(s): **${types}**`
-            );
-
-            await addPoints(player, interaction.channel, pt);
-        } else {
-            await interaction.followUp(
+        if (!isCorrect) {
+            await btn.deferUpdate();
+            return interaction.followUp(
                 `❌ **${btn.user.username}** answered **Gen ${chosenGen}**!`
             );
         }
+
+        
+        winnerFound = true;
+        collector.stop("win");
+
+        await btn.deferUpdate();
+
+        try {
+            const player = await getOrCreatePlayer(
+                btn.user,
+                interaction.guildId
+            );
+
+            const lang = player.language ?? "en";
+            const name = pokemon.names[lang] ?? pokemon.names["en"];
+            const types = pokemon.types.join(" / ");
+
+            await interaction.followUp(
+                `✅ **${btn.user.username}** answered correctly!\n` +
+                `It was **${name}**\nGen: **${chosenGen}**\nType(s): **${types}**`
+            );
+
+            await addPoints(player, interaction.channel, pt);
+        } catch (err) {
+            console.error(err);
+        }
     });
 
+
+
+    
+
     collector.on("end", async (_, reason) => {
-        unlockChannel(channelId);
+        
         if (reason === "win") return;
 
         const player = await getOrCreatePlayer(
@@ -156,6 +175,19 @@ async function guess_gen(interaction) {
             `⏱ Time up!\n`+`**Gen: ${gen}**\nPokémon: **${name}**\nTypes: **${types}**`,
         );
     });
+
+} catch (err) {
+        console.error("GUESS_GEN ERROR:", err);
+
+        if (!interaction.replied) {
+            await interaction.reply("❌ Une erreur est survenue.");
+        }
+
+    } finally {
+        unlockChannel(channelId);
+    }
+
+
 }
 
 function getPokemonGen(id) {

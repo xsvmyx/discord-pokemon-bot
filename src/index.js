@@ -1,8 +1,8 @@
 const {Client , IntentsBitField } = require('discord.js');
 const mongoose = require('mongoose');
-const { Events } = require('discord.js');
 const http = require("http");
 const https = require("https");
+require("dotenv").config();
 
 // 🔧 CRITICAL: Force keepAlive pour Render
 http.globalAgent.keepAlive = true;
