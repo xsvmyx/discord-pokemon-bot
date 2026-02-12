@@ -95,6 +95,8 @@ async function guess_types(interaction) {
 
     const filter = i => !i.user.bot;
 
+    await new Promise((resolve) => {
+
     const collector = interaction.channel.createMessageComponentCollector({
         filter,
         time: 20000
@@ -212,9 +214,10 @@ async function guess_types(interaction) {
                     `Types: **${types}**`
             });
         }
-        
+        resolve();
     });
 
+});
 
 } catch (err) {
         console.error("GUESS_GEN ERROR:", err);

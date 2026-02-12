@@ -12,7 +12,7 @@ async function guess(interaction) {
     if (isLocked(channelId)) {
         return interaction.reply({
             content: "⛔ A game is already running in this channel.",
-            ephemeral: true
+            flags: 64
         });
     }
 
@@ -64,61 +64,70 @@ async function guess(interaction) {
 
         await interaction.reply({ embeds: [embed], files: [file] });
 
-        const collector = interaction.channel.createMessageCollector({
-            filter: msg => !msg.author.bot,
-            time: 12000
-        });
-        
-        let winnerFound = false;
 
-        collector.on("collect", async (msg) => {
+        await new Promise((resolve) => {
 
-            if(winnerFound) return;
+            const collector = interaction.channel.createMessageCollector({
+                filter: msg => !msg.author.bot,
+                time: 12000
+            });
 
-            const reply = msg.content.toLowerCase();
+            let winnerFound = false;
 
-            const correct = Object.values(pokemon.names)
-                .some(n => normalize(n) === normalize(reply));
+            collector.on("collect", async (msg) => {
 
-            if (!correct) {
-                await msg.react("❌");
-                return;
-            }
-                
-            winnerFound = true;
-        
-            collector.stop("win");
-            
-        try{
-            const player = await getOrCreatePlayer(
-                msg.author,
-                interaction.guildId
-            );
+                if (winnerFound) return;
 
-            await msg.react("✅");
-            await addPoints(player, interaction.channel, pt);
-        }catch(e){
-            console.err(e);
-        }
-            collector.stop("win");
-        });
+                const reply = msg.content.toLowerCase();
 
-        collector.on("end", async (_, reason) => {
-            if (reason === "win") return;
+                const correct = Object.values(pokemon.names)
+                    .some(n => normalize(n) === normalize(reply));
 
-            const player = await getOrCreatePlayer(
-                interaction.user,
-                interaction.guildId
-            );
+                if (!correct) {
+                    await msg.react("❌");
+                    return;
+                }
 
-            const lang = player.language ?? "en";
-            const name = pokemon.names[lang] ?? pokemon.names["en"];
-            const types = pokemon.types.join(" / ");
-            const gen = pokemon.gen;
+                winnerFound = true;
 
-            interaction.channel.send(
-                `**⏱ Time up!**\nPokémon: **${name}**\nGen: **${gen}**\nTypes: **${types}**`
-            );
+                try {
+                    const player = await getOrCreatePlayer(
+                        msg.author,
+                        interaction.guildId
+                    );
+
+                    await msg.react("✅");
+                    await addPoints(player, interaction.channel, pt);
+
+                } catch (e) {
+                    console.error(e);
+                }
+
+                collector.stop("win");
+            });
+
+            collector.once("end", async (_, reason) => {
+
+                if (reason !== "win") {
+
+                    const player = await getOrCreatePlayer(
+                        interaction.user,
+                        interaction.guildId
+                    );
+                    //answering in the interaction's user's language
+                    const lang = player.language ?? "en";
+                    const name = pokemon.names[lang] ?? pokemon.names["en"];
+                    const types = pokemon.types.join(" / ");
+                    const gen = pokemon.gen;
+
+                    interaction.channel.send(
+                        `**⏱ Time up!**\nPokémon: **${name}**\nGen: **${gen}**\nTypes: **${types}**`
+                    );
+                }
+
+                resolve(); // ← SUPER IMPORTANT
+            });
+
         });
 
     } catch (err) {

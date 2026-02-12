@@ -89,7 +89,7 @@ async function guess_gen(interaction) {
         files: [file],
         components: rows
     });
-
+    await new Promise((resolve) => {
     const collector = interaction.channel.createMessageComponentCollector({
         filter: i => !i.user.bot,
         time: 15000
@@ -174,6 +174,10 @@ async function guess_gen(interaction) {
         await interaction.followUp(
             `⏱ Time up!\n`+`**Gen: ${gen}**\nPokémon: **${name}**\nTypes: **${types}**`,
         );
+
+         resolve();
+    });
+
     });
 
 } catch (err) {
