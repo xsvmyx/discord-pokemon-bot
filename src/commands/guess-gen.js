@@ -157,9 +157,9 @@ async function guess_gen(interaction) {
 
     
 
-    collector.on("end", async (_, reason) => {
-        
-        if (reason === "win") return;
+collector.on("end", async (_, reason) => {
+
+    if (reason !== "win") {
 
         const player = await getOrCreatePlayer(
             interaction.user,
@@ -172,11 +172,13 @@ async function guess_gen(interaction) {
         const gen = pokemon.gen;
 
         await interaction.followUp(
-            `⏱ Time up!\n`+`**Gen: ${gen}**\nPokémon: **${name}**\nTypes: **${types}**`,
+            `⏱ Time up!\n` +
+            `**Gen: ${gen}**\nPokémon: **${name}**\nTypes: **${types}**`
         );
+    }
 
-         resolve();
-    });
+    resolve(); 
+});
 
     });
 
